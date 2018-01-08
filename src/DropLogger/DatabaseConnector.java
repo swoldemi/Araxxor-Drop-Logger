@@ -27,10 +27,11 @@ public class DatabaseConnector {
 						+ "main_loot varchar(255), "
 						+ "unique_drops varchar(255),"
 						+ "UNIQUE KEY(kill_number)) ";
+		
 		String make_pet_table = "CREATE TABLE IF NOT EXISTS " + user_name + "_pets("
 						+ "araxyte_pet bool, "
 						+ "barry bool, "
-						+ "mallory bool, ";
+						+ "mallory bool)";
 		myState.executeUpdate(make_main_table);
 		myState.executeUpdate(make_pet_table);
 	}
@@ -42,5 +43,16 @@ public class DatabaseConnector {
 		String select_all = "SELECT * FROM " + user_name;
 		this.myResult = myState.executeQuery(select_all); 
 		return this.myResult;
+	}
+	
+	public void insertRow(String table_name) throws SQLException{
+		//INSERT INTO data_file VALUES(1, 74, "12 Blue Charm", "12 Saradomin brew flask (6)", "220 Onyx bolts", null)
+		String insertion_query = "INSERT INTO " + table_name + "VALUES("
+				+ Drops.kill_number + ", "
+				+ Drops.charms_drop + ", "
+				+ Drops.food_potions_drop + ", "
+				+ Drops.main_loot_drop + ", "
+				+ Drops.unique_drops_drop + ")";
+		this.myState.executeUpdate(insertion_query);
 	}
 }
