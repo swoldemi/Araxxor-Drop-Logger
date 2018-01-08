@@ -16,7 +16,7 @@ public class Drops {
 		"Rocktail", "Saradomin brew flask (6)", "Super restore flask (6)",
 		"Overload flask (6)"};
 	final public static String[] unique_drops = new String[]{
-		"Spider leg bottom", "Spider leg middle", "Spider leg top",
+		"none", "Spider leg bottom", "Spider leg middle", "Spider leg top",
 		"Araxxi's eye", "Araxxi's fang", "Araxxi's web"};
 	final public static String[] very_unique_drops = new String[]{"Starved ancient effigy", "Araxyte pet", "Araxyte pet"};
 
