@@ -21,7 +21,7 @@ public class LoggerInterface implements  ActionListener {
 		this.connector = connector;
 		connector.makeTable(this.user_name);
 	}
-	//INSERT INTO data_file VALUES(1, 74, "12 Blue Charm", "12 Saradomin brew flask (6)", "220 Onyx bolts", null)
+	
 	public void Logger() throws SQLException{
 		String last_kill = null;
 		String pets = null;
@@ -65,11 +65,11 @@ public class LoggerInterface implements  ActionListener {
 					JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[0]) +1;
 			
 			if(task == 1){
-				this.setDrops();
+				this.setDrops(); // get the drops to be entered into the table from the user
+				connector.insertRow(this.user_name); // update the user's table
 			}
 			else if(task == 2){
 				//LoggerInterface.getDrops();
-				System.out.println("Not implemented");
 			}
 			else if(task == 3){
 				exit = true;
@@ -137,7 +137,20 @@ public class LoggerInterface implements  ActionListener {
 			Drops.charms_quantity = charms_choices_count.getText();
 			Drops.food_potions_quantity = food_potions_count.getText();
 			Drops.main_loot_quantity = main_loot_count.getText();
+			/*System.out.println("AAAAAAA" + Drops.kill_number + " " + Drops.arrow_pheromone_drop +  " " 
+					+ Drops.charms_quantity + " " + Drops.food_potions_quantity + " " 
+					+ Drops.main_loot_quantity);*/
 		}
+		
+		// Define the instance variables that are going to be passed as parameters for the row insertion query
+		Drops.charms_drop = Drops.charms_quantity + " " + charms_choices.getSelectedItem().toString();
+		Drops.food_potions_drop = Drops.food_potions_quantity + " " + food_potions_choices.getSelectedItem().toString();
+		Drops.main_loot_drop = Drops.main_loot_quantity + " " + main_loot_choices.getSelectedItem().toString();
+		Drops.unique_drops_drop = unique_drops_choices.getSelectedItem().toString();
+		if(Drops.unique_drops_drop.equals("none")){
+			Drops.unique_drops_drop = null;
+		}
+		
 	}
 	
 	@Override
@@ -145,26 +158,6 @@ public class LoggerInterface implements  ActionListener {
 		// Get the items and their quantities and store them in instance variables
 		String get_selections = ae.getSource().toString().split("selectedItemReminder=")[1].replace("]", "");
 		
-		// Iterate through each category of items and store it if it falls within a category
-		for(String charms: Drops.charms){
-			if(get_selections.contains(charms))
-				Drops.charms_drop = Drops.charms_quantity + " " + charms;
-		}
-		
-		for(String food_potion: Drops.food_potions){
-			if(get_selections.contains(food_potion))
-				Drops.food_potions_drop = Drops.food_potions_quantity + " " + food_potion;
-		}
-		
-		for(String main_loot: Drops.main_loot){
-			if(get_selections.contains(main_loot))
-				Drops.main_loot_drop = Drops.main_loot_quantity + " " + main_loot;
-		}
-		
-		for(String unique_drop: Drops.unique_drops){
-			if(get_selections.contains(unique_drop))
-				Drops.unique_drops_drop = unique_drop;
-		}
 	}
 	
 }
