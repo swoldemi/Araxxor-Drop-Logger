@@ -49,6 +49,7 @@ public class DatabaseConnector {
 		//INSERT INTO data_file VALUES(1, 74, "12 Blue Charm", "12 Saradomin brew flask (6)", "220 Onyx bolts", null)
 		String insertion_query = "INSERT INTO " + table_name + "VALUES("
 				+ Drops.kill_number + ", "
+				+ Drops.arrow_pheromone_drop + ", "
 				+ Drops.charms_drop + ", "
 				+ Drops.food_potions_drop + ", "
 				+ Drops.main_loot_drop + ", "
