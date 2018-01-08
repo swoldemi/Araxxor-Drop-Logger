@@ -19,7 +19,7 @@ public class DatabaseConnector {
 	}
 	
 	public void makeTable(String user_name) throws SQLException{
-		String make_table = "CREATE TABLE IF NOT EXISTS " + user_name + "("
+		String make_main_table = "CREATE TABLE IF NOT EXISTS " + user_name + "("
 						+ "kill_number int, "
 						+ "arrows_pheromone int, "
 						+ "charms varchar(255), "
@@ -27,7 +27,12 @@ public class DatabaseConnector {
 						+ "main_loot varchar(255), "
 						+ "unique_drops varchar(255),"
 						+ "UNIQUE KEY(kill_number)) ";
-		myState.executeUpdate(make_table);
+		String make_pet_table = "CREATE TABLE IF NOT EXISTS " + user_name + "_pets("
+						+ "araxyte_pet bool, "
+						+ "barry bool, "
+						+ "mallory bool, ";
+		myState.executeUpdate(make_main_table);
+		myState.executeUpdate(make_pet_table);
 	}
 	
 	/* 
