@@ -78,7 +78,7 @@ public class LoggerInterface implements  ActionListener {
 	}
 	
 	public void setDrops(){
-		Drops[] drops = new Drops[6]; // create an array of drops
+		Drops[] current_kill = new Drops[6]; // create an array of drops
 		
 		// Begin JPanel Creation
 		String[] user_drops = new String[6];
@@ -98,20 +98,40 @@ public class LoggerInterface implements  ActionListener {
 		JTextField food_potions_count = new JTextField(1);
 		JTextField main_loot_count = new JTextField(1);
 		
+		// Get kill number and arrow count - 0 arrows means you got a pheromone
+		JTextField kill_number_field = new JTextField(1);
+		JTextField arrows_pheromone_field = new JTextField(1);
+		
+		// Add everything to a JPanel
 		JPanel logger_panel = new JPanel();
-		logger_panel.setLayout(new GridLayout(2,2));
+		logger_panel.setLayout(new GridLayout(8,2));
+		logger_panel.add(new JLabel("Kill number"));
+		logger_panel.add(kill_number_field);
+		logger_panel.add(new JLabel("Arrows/Pheromone"));
+		logger_panel.add(arrows_pheromone_field);
 		logger_panel.add(new JLabel("Charms"));
 		logger_panel.add(charms_choices);
 		logger_panel.add(new JLabel("Charms quantity"));
 		logger_panel.add(charms_choices_count);
+		logger_panel.add(new JLabel("Food/Potions"));
+		logger_panel.add(food_potions_choices);
+		logger_panel.add(new JLabel("Food/Potions quantity"));
+		logger_panel.add(food_potions_count);
 		logger_panel.add(new JLabel("Main loot:"));
 		logger_panel.add(main_loot_choices);
 		logger_panel.add(new JLabel("Main loot quantity:"));
 		logger_panel.add(main_loot_count);
 		
+		
 		// Show panel
 		int logger_panel_selection = JOptionPane.showConfirmDialog(null, logger_panel, 
 		           "Runescape Araxxor Drop Logger | Log", JOptionPane.OK_CANCEL_OPTION);
+		
+		// Get the static text fields (kill number and arrow/pheromone count)
+		if(logger_panel_selection == 0){
+			Drops.kill_number = Integer.parseInt(kill_number_field.getText());
+			Drops.arrow_pheromone_drop = Integer.parseInt(arrows_pheromone_field.getText());
+		}
 	}
 	
 	@Override
