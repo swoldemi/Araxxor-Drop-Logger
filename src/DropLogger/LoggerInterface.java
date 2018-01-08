@@ -23,7 +23,7 @@ public class LoggerInterface implements  ActionListener {
 	}
 	
 	public void Logger() throws SQLException{
-		String last_kill = null;
+		String[] last_kill = null;
 		String pets = null;
 		
 		// First, get the current state of the main table
@@ -36,12 +36,10 @@ public class LoggerInterface implements  ActionListener {
 					+ "|" + current_state.getString("main_loot")
 					+ "|" + current_state.getString("unique_drops") 
 					);
-			last_kill = current_state.getString("kill_number")
-					+ "|" + current_state.getString("arrows_pheromone")
-					+ "|" + current_state.getString("charms")
-					+ "|" + current_state.getString("rocktails_sarabrews_overloads")
-					+ "|" + current_state.getString("main_loot")
-					+ "|" + current_state.getString("unique_drops");
+			last_kill = new String[]{current_state.getString("kill_number"),
+				current_state.getString("arrows_pheromone"),
+				current_state.getString("charms"), current_state.getString("rocktails_sarabrews_overloads"), 
+				current_state.getString("main_loot"), "|" + current_state.getString("unique_drops")};
 		}
 		
 		// Now, get the current state of the pets table
@@ -132,9 +130,6 @@ public class LoggerInterface implements  ActionListener {
 			Drops.charms_quantity = charms_choices_count.getText();
 			Drops.food_potions_quantity = food_potions_count.getText();
 			Drops.main_loot_quantity = main_loot_count.getText();
-			/*System.out.println("AAAAAAA" + Drops.kill_number + " " + Drops.arrow_pheromone_drop +  " " 
-					+ Drops.charms_quantity + " " + Drops.food_potions_quantity + " " 
-					+ Drops.main_loot_quantity);*/
 		}
 		
 		// Define the instance variables that are going to be passed as parameters for the row insertion query
@@ -145,7 +140,6 @@ public class LoggerInterface implements  ActionListener {
 		if(Drops.unique_drops_drop.equals("none")){
 			Drops.unique_drops_drop = null;
 		}
-		
 	}
 	
 	@Override
