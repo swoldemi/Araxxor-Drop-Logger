@@ -80,25 +80,65 @@ public class LoggerInterface implements  ActionListener {
 	public void setDrops(){
 		Drops[] drops = new Drops[6]; // create an array of drops
 		
-		// Create a JPanel
+		// Begin JPanel Creation
 		String[] user_drops = new String[6];
 		
-		JComboBox<String> main_loot = new JComboBox<String>(Drops.main_loot);
-		main_loot.addActionListener(this);
+		// Add drops categories
+		JComboBox<String> charms_choices = new JComboBox<String>(Drops.charms);
+		JComboBox<String> food_potions_choices = new JComboBox<String>(Drops.food_potions);
+		JComboBox<String> main_loot_choices = new JComboBox<String>(Drops.main_loot);
+		JComboBox<String> unique_drops_choices = new JComboBox<String>(Drops.unique_drops);
+		charms_choices.addActionListener(this);
+		food_potions_choices.addActionListener(this);
+		main_loot_choices.addActionListener(this);
+		unique_drops_choices.addActionListener(this);
+		
+		// Add drop category quantity fields - unique drops are dropped alone
+		JTextField charms_choices_count = new JTextField(1);
+		JTextField food_potions_count = new JTextField(1);
+		JTextField main_loot_count = new JTextField(1);
 		
 		JPanel logger_panel = new JPanel();
-		logger_panel.setLayout(new GridLayout(1,1));
-		logger_panel.add(new JLabel("Select main loot:"));
-		logger_panel.add(main_loot);
+		logger_panel.setLayout(new GridLayout(2,2));
+		logger_panel.add(new JLabel("Charms"));
+		logger_panel.add(charms_choices);
+		logger_panel.add(new JLabel("Charms quantity"));
+		logger_panel.add(charms_choices_count);
+		logger_panel.add(new JLabel("Main loot:"));
+		logger_panel.add(main_loot_choices);
+		logger_panel.add(new JLabel("Main loot quantity:"));
+		logger_panel.add(main_loot_count);
+		
+		// Show panel
 		int logger_panel_selection = JOptionPane.showConfirmDialog(null, logger_panel, 
 		           "Runescape Araxxor Drop Logger | Log", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		String hold_main_loot = ae.getSource().toString();
-		System.out.println(hold_main_loot);
+		// Get the items and their quantities and store them in instance variables
+		String get_selections = ae.getSource().toString().split("selectedItemReminder=")[1].replace("]", "");
 		
+		// Iterate through each category of items and store it if it falls within a category
+		for(String charms: Drops.charms){
+			if(get_selections.contains(charms))
+				Drops.charms_drop = charms;
+		}
+		
+		for(String food_potion: Drops.food_potions){
+			if(get_selections.contains(food_potion))
+				Drops.food_potions_drop = food_potion;
+		}
+		
+		for(String main_loot: Drops.main_loot){
+			if(get_selections.contains(main_loot))
+				Drops.main_loot_drop = main_loot;
+		}
+		
+		for(String unique_drop: Drops.unique_drops){
+			if(get_selections.contains(unique_drop))
+				Drops.unique_drops_drop = unique_drop;
+		}
 	}
 	
 }
