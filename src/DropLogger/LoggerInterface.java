@@ -47,9 +47,31 @@ public class LoggerInterface {
 					+ "|" + current_state.getString("mallory");
 		}
 		
-		while(true){
-			 
+		boolean exit = false;
+		while(!exit){
+			String[] buttons = {"1", "2", "3"};
+			int task = JOptionPane.showOptionDialog(null, 
+					"Welcome " + this.user_name + "!\nWhat would you like to do?\n"
+					+ "1: Log kill\n2: View drop log\n3: Exit",
+					"Runescape Araxxor Drop Logger | Please Select an Option:", 
+					JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[0]) +1;
+			
+			if(task == 1){
+				LoggerInterface.setDrops();
+			}
+			else if(task == 2){
+				//LoggerInterface.getDrops();
+				System.out.println("Not implemented");
+			}
+			else if(task == 3){
+				exit = true;
+				JOptionPane.showMessageDialog(null, "Exiting RADL. Click 'OK' to close this window.", "Runescape Araxxor Drop Logger | Good Bye!", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
-		
 	}
+	
+	public static void setDrops(){
+		System.out.println("Not implemented");
+	}
+	
 }
