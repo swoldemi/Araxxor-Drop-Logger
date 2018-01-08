@@ -1,5 +1,6 @@
 package DropLogger;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -104,18 +105,19 @@ public class LoggerInterface implements  ActionListener {
 		
 		// Add everything to a JPanel
 		JPanel logger_panel = new JPanel();
+		logger_panel.setPreferredSize(new Dimension(280, 200));
 		logger_panel.setLayout(new GridLayout(8,2));
-		logger_panel.add(new JLabel("Kill number"));
+		logger_panel.add(new JLabel("Kill number:"));
 		logger_panel.add(kill_number_field);
-		logger_panel.add(new JLabel("Arrows/Pheromone"));
+		logger_panel.add(new JLabel("Arrows/Pheromone:"));
 		logger_panel.add(arrows_pheromone_field);
-		logger_panel.add(new JLabel("Charms"));
+		logger_panel.add(new JLabel("Charms:"));
 		logger_panel.add(charms_choices);
-		logger_panel.add(new JLabel("Charms quantity"));
+		logger_panel.add(new JLabel("Charms quantity:"));
 		logger_panel.add(charms_choices_count);
-		logger_panel.add(new JLabel("Food/Potions"));
+		logger_panel.add(new JLabel("Food/Potions:"));
 		logger_panel.add(food_potions_choices);
-		logger_panel.add(new JLabel("Food/Potions quantity"));
+		logger_panel.add(new JLabel("Food/Potions quantity:"));
 		logger_panel.add(food_potions_count);
 		logger_panel.add(new JLabel("Main loot:"));
 		logger_panel.add(main_loot_choices);
