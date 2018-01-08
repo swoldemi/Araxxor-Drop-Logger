@@ -27,30 +27,30 @@ public class LoggerInterface implements  ActionListener {
 		String pets = null;
 		
 		// First, get the current state of the main table
-		ResultSet current_state = connector.getTable(this.user_name);
-		while(current_state.next()){
-			System.out.println(current_state.getString("kill_number")
-					+ "|" + current_state.getString("arrows_pheromone")
-					+ "|" + current_state.getString("charms")
-					+ "|" + current_state.getString("rocktails_sarabrews_overloads")
-					+ "|" + current_state.getString("main_loot")
-					+ "|" + current_state.getString("unique_drops") 
+		connector.getTable(this.user_name);
+		while(connector.myResult.next()){
+			System.out.println(connector.myResult.getString("kill_number")
+					+ "|" + connector.myResult.getString("arrows_pheromone")
+					+ "|" + connector.myResult.getString("charms")
+					+ "|" + connector.myResult.getString("rocktails_sarabrews_overloads")
+					+ "|" + connector.myResult.getString("main_loot")
+					+ "|" + connector.myResult.getString("unique_drops") 
 					);
-			last_kill = new String[]{current_state.getString("kill_number"),
-				current_state.getString("arrows_pheromone"),
-				current_state.getString("charms"), current_state.getString("rocktails_sarabrews_overloads"), 
-				current_state.getString("main_loot"), "|" + current_state.getString("unique_drops")};
+			last_kill = new String[]{connector.myResult.getString("kill_number"),
+					connector.myResult.getString("arrows_pheromone"),
+					connector.myResult.getString("charms"), connector.myResult.getString("rocktails_sarabrews_overloads"), 
+					connector.myResult.getString("main_loot"), "|" + connector.myResult.getString("unique_drops")};
 		}
 		
 		// Now, get the current state of the pets table
 		ResultSet current_pets_state = connector.getTable(this.user_name + "_pets");
 		while(current_pets_state.next()){
-			System.out.println(current_state.getString("araxyte_pet")
-					+ "|" + current_state.getString("barry")
-					+ "|" + current_state.getString("mallory"));
-			pets = current_state.getString("araxyte_pet")
-					+ "|" + current_state.getString("barry")
-					+ "|" + current_state.getString("mallory");
+			System.out.println(connector.myResult.getString("araxyte_pet")
+					+ "|" + connector.myResult.getString("barry")
+					+ "|" + connector.myResult.getString("mallory"));
+			pets = connector.myResult.getString("araxyte_pet")
+					+ "|" + connector.myResult.getString("barry")
+					+ "|" + connector.myResult.getString("mallory");
 		}
 		
 		boolean exit = false;
@@ -67,7 +67,8 @@ public class LoggerInterface implements  ActionListener {
 				connector.insertRow(this.user_name); // update the user's table
 			}
 			else if(task == 2){
-				//LoggerInterface.getDrops();
+				connector.getTable(this.user_name); // get the current log of drops
+				this.showDrops(); // show the drop logger
 			}
 			else if(task == 3){
 				exit = true;
@@ -146,6 +147,10 @@ public class LoggerInterface implements  ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		// Get the items and their quantities and store them in instance variables
 		String get_selections = ae.getSource().toString().split("selectedItemReminder=")[1].replace("]", "");
+		
+	}
+	
+	public void showDrops(){
 		
 	}
 	
