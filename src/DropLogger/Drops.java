@@ -1,6 +1,7 @@
 package DropLogger;
 
 public class Drops {
+	// Drop name constants
 	final public static String[] arrow_pheromone = new String[]{"Araxyte pheromone", "Araxyte arrow"}; 
 	final public static String[] main_loot = new String[]{
 		"Coins", "Black dragonhide", "Crystal triskelion fragment 1", 
@@ -18,4 +19,20 @@ public class Drops {
 		"Spider leg bottom", "Spider leg middle", "Spider leg top",
 		"Araxxi's eye", "Araxxi's fang", "Araxxi's web"};
 	final public static String[] very_unique_drops = new String[]{"Starved ancient effigy", "Araxyte pet", "Araxyte pet"};
+
+	// Instance variables for the drops of the current kill
+	int kill_number; // current kill number
+	int arrow_pheromone_drop; // number of arrows dropped, 0 if pheromone
+	String charms_drop; // charms dropped - {quantity} {Charm type}
+	String food_potions_drop; // food or potions dropped - {quantity} {food or potion name} 
+	String main_loot_drop; // main loop dropped - {quantity} {name}
+	String unique_drops_drop; // if unique or very unique drop - {name}, no quantity
+	
+	Drops(int kn, int apd, String cd, String fdp, String udp){
+		this.kill_number = kn;
+		this.arrow_pheromone_drop = apd;
+		this.charms_drop = cd;
+		this.food_potions_drop = fdp;
+		this.unique_drops_drop = udp;
+	}
 }
