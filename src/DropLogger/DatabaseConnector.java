@@ -54,7 +54,16 @@ public class DatabaseConnector {
 				+ "'" + Drops.food_potions_drop + "', "
 				+ "'" + Drops.main_loot_drop + "', "
 				+ "'" + Drops.unique_drops_drop + "')";
-		System.out.println(insertion_query);
 		this.myState.executeUpdate(insertion_query);
+	}
+	
+	public int getLength(String table_name) throws SQLException{
+		int length = 0;
+		String insertion_query = "SELECT kill_number FROM " + table_name;
+		this.myResult = this.myState.executeQuery(insertion_query);
+		while(this.myResult.next()){
+			length++;
+		}
+		return length;
 	}
 }
