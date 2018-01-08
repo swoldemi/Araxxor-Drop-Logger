@@ -2,11 +2,12 @@ package DropLogger;
 import java.sql.*;
 
 public class DatabaseConnector {
-	String url = DatabaseCredentials.url;
-	String password = DatabaseCredentials.password;
-	String username = DatabaseCredentials.username;
+	private String url = DatabaseCredentials.url;
+	private String password = DatabaseCredentials.password;
+	private String username = DatabaseCredentials.username;
 	Connection myConn;
 	Statement myState;
+	ResultSet myResult;
 	
 	DatabaseConnector(){
     	try {
@@ -29,5 +30,12 @@ public class DatabaseConnector {
 		myState.executeUpdate(make_table);
 	}
 	
-	
+	/* 
+	 * Get the current state of the table
+	 */
+	public ResultSet getTable(String user_name) throws SQLException{
+		String select_all = "SELECT * FROM " + user_name;
+		this.myResult = myState.executeQuery(select_all); 
+		return this.myResult;
+	}
 }
