@@ -124,15 +124,17 @@ public class LoggerInterface implements  ActionListener {
 		logger_panel.add(new JLabel("Main loot quantity:"));
 		logger_panel.add(main_loot_count);
 		
-		
 		// Show panel
 		int logger_panel_selection = JOptionPane.showConfirmDialog(null, logger_panel, 
 		           "Runescape Araxxor Drop Logger | Log", JOptionPane.OK_CANCEL_OPTION);
 		
-		// Get the static text fields (kill number and arrow/pheromone count)
+		// Get the static text fields (kill number and arrow/pheromone count) and quantities
 		if(logger_panel_selection == 0){
 			Drops.kill_number = Integer.parseInt(kill_number_field.getText());
 			Drops.arrow_pheromone_drop = Integer.parseInt(arrows_pheromone_field.getText());
+			Drops.charms_quantity = charms_choices_count.getText();
+			Drops.food_potions_quantity = food_potions_count.getText();
+			Drops.main_loot_quantity = main_loot_count.getText();
 		}
 	}
 	
@@ -144,17 +146,17 @@ public class LoggerInterface implements  ActionListener {
 		// Iterate through each category of items and store it if it falls within a category
 		for(String charms: Drops.charms){
 			if(get_selections.contains(charms))
-				Drops.charms_drop = charms;
+				Drops.charms_drop = Drops.charms_quantity + " " + charms;
 		}
 		
 		for(String food_potion: Drops.food_potions){
 			if(get_selections.contains(food_potion))
-				Drops.food_potions_drop = food_potion;
+				Drops.food_potions_drop = Drops.food_potions_quantity + " " + food_potion;
 		}
 		
 		for(String main_loot: Drops.main_loot){
 			if(get_selections.contains(main_loot))
-				Drops.main_loot_drop = main_loot;
+				Drops.main_loot_drop = Drops.main_loot_quantity + " " + main_loot;
 		}
 		
 		for(String unique_drop: Drops.unique_drops){
