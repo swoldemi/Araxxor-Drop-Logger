@@ -1,10 +1,17 @@
 package DropLogger;
 
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-public class LoggerInterface {
+public class LoggerInterface implements  ActionListener {
 	private String user_name;
 	private DatabaseConnector connector;
 	
@@ -57,7 +64,7 @@ public class LoggerInterface {
 					JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[0]) +1;
 			
 			if(task == 1){
-				LoggerInterface.setDrops();
+				this.setDrops();
 			}
 			else if(task == 2){
 				//LoggerInterface.getDrops();
@@ -70,8 +77,28 @@ public class LoggerInterface {
 		}
 	}
 	
-	public static void setDrops(){
-		System.out.println("Not implemented");
+	public void setDrops(){
+		Drops[] drops = new Drops[6]; // create an array of drops
+		
+		// Create a JPanel
+		String[] user_drops = new String[6];
+		
+		JComboBox<String> main_loot = new JComboBox<String>(Drops.main_loot);
+		main_loot.addActionListener(this);
+		
+		JPanel logger_panel = new JPanel();
+		logger_panel.setLayout(new GridLayout(1,1));
+		logger_panel.add(new JLabel("Select main loot:"));
+		logger_panel.add(main_loot);
+		int logger_panel_selection = JOptionPane.showConfirmDialog(null, logger_panel, 
+		           "Runescape Araxxor Drop Logger | Log", JOptionPane.OK_CANCEL_OPTION);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		String hold_main_loot = ae.getSource().toString();
+		System.out.println(hold_main_loot);
+		
 	}
 	
 }
