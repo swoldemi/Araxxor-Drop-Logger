@@ -79,11 +79,6 @@ public class LoggerInterface implements  ActionListener {
 	}
 	
 	public void setDrops(){
-		Drops[] current_kill = new Drops[6]; // create an array of drops
-		
-		// Begin JPanel Creation
-		String[] user_drops = new String[6];
-		
 		// Add drops categories
 		JComboBox<String> charms_choices = new JComboBox<String>(Drops.charms);
 		JComboBox<String> food_potions_choices = new JComboBox<String>(Drops.food_potions);
