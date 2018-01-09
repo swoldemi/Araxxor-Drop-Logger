@@ -157,7 +157,7 @@ public class LoggerInterface implements ActionListener{
 		// get the current number of rows in the table
 		int table_length = connector.getLength(this.user_name);
 		
-		Object[][] cell_information = new Object[100][100];
+		Object[][] cell_information = new Object[table_length][6];
 		
 		connector.getTable(this.user_name); // get the current log of drops
 		int row = 0;
