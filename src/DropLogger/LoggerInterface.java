@@ -180,14 +180,29 @@ public class LoggerInterface implements ActionListener{
        
 	
     public void makeAndShowTable(Object[][] cell_information) {
-    	 JFrame frame = new JFrame("Araxxor Drop Logger | Logged drops");
+    	 Object lock = new Object();
+    	 JFrame frame = new JFrame();
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          LoggerTable table = new LoggerTable(cell_information);
          table.setOpaque(true); //content panes must be opaque
          frame.setContentPane(table);
 
-         //Display the window.
+         //Display the window
          frame.pack();
          frame.setVisible(true);
+         Thread t = new Thread() {
+             public void run() {
+                 synchronized(lock) {
+                     while (frame.isVisible())
+                         try {
+                             lock.wait();
+                         } catch (InterruptedException e) {
+                             e.printStackTrace();
+                         }
+                 }
+             }
+         };
+         t.start();
+         
     }
 }
