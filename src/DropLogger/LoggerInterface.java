@@ -27,33 +27,26 @@ public class LoggerInterface implements  ActionListener {
 		String[] last_kill = null;
 		String pets = null;
 		
-		// First, get the current state of the main table
+		// First, get the current state of the main table and get the last row
 		connector.getTable(this.user_name);
-		while(connector.myResult.next()){
-			System.out.println(connector.myResult.getString("kill_number")
-					+ "|" + connector.myResult.getString("arrows_pheromone")
-					+ "|" + connector.myResult.getString("charms")
-					+ "|" + connector.myResult.getString("rocktails_sarabrews_overloads")
-					+ "|" + connector.myResult.getString("main_loot")
-					+ "|" + connector.myResult.getString("unique_drops")
-					);
-			last_kill = new String[]{connector.myResult.getString("kill_number"),
-					connector.myResult.getString("arrows_pheromone"),
-					connector.myResult.getString("charms"), connector.myResult.getString("rocktails_sarabrews_overloads"), 
-					connector.myResult.getString("main_loot"), "|" + connector.myResult.getString("unique_drops")};
+		connector.myResult.last();
+		last_kill = new String[]{connector.myResult.getString("kill_number"),
+				connector.myResult.getString("arrows_pheromone"),
+				connector.myResult.getString("charms"), connector.myResult.getString("rocktails_sarabrews_overloads"), 
+				connector.myResult.getString("main_loot"), connector.myResult.getString("unique_drops")};
+		
+		for(String item: last_kill){
+			System.out.print(item + " ");
 		}
 		connector.myResult.close();
 		
 		// Now, get the current state of the pets table
 		connector.getTable(this.user_name + "_pets");
-		while(connector.myResult.next()){
-			System.out.println(connector.myResult.getString("araxyte_pet")
-					+ "|" + connector.myResult.getString("barry")
-					+ "|" + connector.myResult.getString("mallory"));
-			pets = connector.myResult.getString("araxyte_pet")
+		connector.myResult.last();
+		pets = connector.myResult.getString("araxyte_pet")
 					+ "|" + connector.myResult.getString("barry")
 					+ "|" + connector.myResult.getString("mallory");
-		}
+		System.out.println(pets);
 		connector.myResult.close();
 		
 		boolean exit = false;
