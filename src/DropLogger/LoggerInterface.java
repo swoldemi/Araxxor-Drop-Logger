@@ -157,18 +157,21 @@ public class LoggerInterface implements ActionListener{
 		// get the current number of rows in the table
 		int table_length = connector.getLength(this.user_name);
 		
-		// add all of the rows to a list of String arrays
-		ArrayList<Object[]> drops = new ArrayList<Object[]>();
+		Object[][] cell_information = new Object[100][100];
 		
 		connector.getTable(this.user_name); // get the current log of drops
+		int row = 0;
 		while(connector.myResult.next()){
 			Object[] drop_table_row = new Object[]{Integer.parseInt(connector.myResult.getString("kill_number")), Integer.parseInt(connector.myResult.getString("arrows_pheromone")),
 					connector.myResult.getString("charms"), connector.myResult.getString("rocktails_sarabrews_overloads"),
 					connector.myResult.getString("main_loot"), connector.myResult.getString("unique_drops")};
-			drops.add(drop_table_row);	
+			for(int x = 0; x < 6; x++){
+				cell_information[row][x] = drop_table_row[x];
+			}
+			row++;
 		}
 		connector.myResult.close();
-		Object[][] cell_information = new Object[][]{drops.toArray()};
+		
 		return cell_information;
 	}
        
