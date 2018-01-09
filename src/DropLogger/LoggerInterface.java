@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -34,17 +35,18 @@ public class LoggerInterface implements  ActionListener {
 					+ "|" + connector.myResult.getString("charms")
 					+ "|" + connector.myResult.getString("rocktails_sarabrews_overloads")
 					+ "|" + connector.myResult.getString("main_loot")
-					+ "|" + connector.myResult.getString("unique_drops") 
+					+ "|" + connector.myResult.getString("unique_drops")
 					);
 			last_kill = new String[]{connector.myResult.getString("kill_number"),
 					connector.myResult.getString("arrows_pheromone"),
 					connector.myResult.getString("charms"), connector.myResult.getString("rocktails_sarabrews_overloads"), 
 					connector.myResult.getString("main_loot"), "|" + connector.myResult.getString("unique_drops")};
 		}
+		connector.myResult.close();
 		
 		// Now, get the current state of the pets table
-		ResultSet current_pets_state = connector.getTable(this.user_name + "_pets");
-		while(current_pets_state.next()){
+		connector.getTable(this.user_name + "_pets");
+		while(connector.myResult.next()){
 			System.out.println(connector.myResult.getString("araxyte_pet")
 					+ "|" + connector.myResult.getString("barry")
 					+ "|" + connector.myResult.getString("mallory"));
@@ -52,6 +54,7 @@ public class LoggerInterface implements  ActionListener {
 					+ "|" + connector.myResult.getString("barry")
 					+ "|" + connector.myResult.getString("mallory");
 		}
+		connector.myResult.close();
 		
 		boolean exit = false;
 		while(!exit){
@@ -67,7 +70,6 @@ public class LoggerInterface implements  ActionListener {
 				connector.insertRow(this.user_name); // update the user's table
 			}
 			else if(task == 2){
-				connector.getTable(this.user_name); // get the current log of drops
 				this.showDrops(); // show the drop logger
 			}
 			else if(task == 3){
@@ -150,8 +152,35 @@ public class LoggerInterface implements  ActionListener {
 		
 	}
 	
-	public void showDrops(){
+	public void showDrops() throws SQLException{
+		JPanel show_log_panel = new JPanel();
+		show_log_panel.setPreferredSize(new Dimension(280, 200));
 		
+		// get the current number of rows in the table
+		int table_length = connector.getLength(this.user_name);
+		show_log_panel.setLayout(new GridLayout(table_length,1));
+		
+		// add all of the rows to a JLabel using an ArrayList
+		ArrayList<JLabel> drops = new ArrayList<JLabel>();
+		connector.getTable(this.user_name); // get the current log of drops
+		while(connector.myResult.next()){
+			String drop_row = connector.myResult.getString("kill_number") + " " + connector.myResult.getString("arrows_pheromone")
+					+ " " + connector.myResult.getString("charms") + " " + connector.myResult.getString("rocktails_sarabrews_overloads")
+					+ " " + connector.myResult.getString("main_loot") + " " + connector.myResult.getString("unique_drops") + "\n";
+			System.out.println(drop_row);
+			drops.add(new JLabel(connector.myResult.getString("kill_number") + " " + connector.myResult.getString("arrows_pheromone")
+			+ " " + connector.myResult.getString("charms") + " " + connector.myResult.getString("rocktails_sarabrews_overloads")
+			+ " " + connector.myResult.getString("main_loot") + " " + connector.myResult.getString("unique_drops") + "\n"));	
+		}
+		connector.myResult.close();
+		for(int x = 0; x < drops.size(); x++){
+			System.out.println(drops.get(x).getText());
+			show_log_panel.add(drops.get(x));
+		}
+		
+		// Show panel
+		int logger_panel_selection = JOptionPane.showConfirmDialog(null, show_log_panel, 
+				           "Runescape Araxxor Drop Logger | View Log", JOptionPane.OK_CANCEL_OPTION);
 	}
 	
 }
