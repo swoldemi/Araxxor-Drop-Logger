@@ -71,7 +71,7 @@ public class LoggerInterface implements ActionListener{
 				connector.insertRow(this.user_name); // update the user's table
 			}
 			else if(task == 2){
-				return; // return to the main thread
+				this.makeAndShowTable(this.getDrops());
 			}
 			else if(task == 3){
 				exit = true;
@@ -157,9 +157,13 @@ public class LoggerInterface implements ActionListener{
 		// get the current number of rows in the table
 		int table_length = connector.getLength(this.user_name);
 		
+		// create an object to hold all of the cell information for each row
 		Object[][] cell_information = new Object[table_length][6];
 		
-		connector.getTable(this.user_name); // get the current log of drops
+		// get the current log of drops
+		connector.getTable(this.user_name); 
+		
+		// add each of the rows, using the cursor, to the 2D array to be used for the JFrame
 		int row = 0;
 		while(connector.myResult.next()){
 			Object[] drop_table_row = new Object[]{Integer.parseInt(connector.myResult.getString("kill_number")), Integer.parseInt(connector.myResult.getString("arrows_pheromone")),
@@ -171,7 +175,6 @@ public class LoggerInterface implements ActionListener{
 			row++;
 		}
 		connector.myResult.close();
-		
 		return cell_information;
 	}
        
