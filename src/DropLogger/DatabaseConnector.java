@@ -39,10 +39,9 @@ public class DatabaseConnector {
 	/* 
 	 * Get the current state of the table
 	 */
-	public ResultSet getTable(String user_name) throws SQLException{
+	public void getTable(String user_name) throws SQLException{
 		String select_all = "SELECT * FROM " + user_name;
 		this.myResult = myState.executeQuery(select_all); 
-		return this.myResult;
 	}
 	
 	public void insertRow(String table_name) throws SQLException{
