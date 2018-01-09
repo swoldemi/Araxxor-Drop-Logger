@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -24,6 +26,7 @@ import javax.swing.table.TableColumn;
 public class LoggerInterface implements ActionListener{
 	private String user_name;
 	private DatabaseConnector connector;
+	public boolean exit = false;
 	
 	LoggerInterface(String name, DatabaseConnector connector) throws SQLException{
 		this.user_name = name;
@@ -57,8 +60,7 @@ public class LoggerInterface implements ActionListener{
 		System.out.println(pets);
 		connector.myResult.close();
 		
-		boolean exit = false;
-		while(!exit){
+		while(!this.exit){
 			String[] buttons = {"1", "2", "3"};
 			int task = JOptionPane.showOptionDialog(null, 
 					"Welcome " + this.user_name + "!\nWhat would you like to do?\n"
@@ -74,7 +76,7 @@ public class LoggerInterface implements ActionListener{
 				this.makeAndShowTable(this.getDrops());
 			}
 			else if(task == 3){
-				exit = true;
+				this.exit = true;
 				JOptionPane.showMessageDialog(null, "Exiting RADL. Click 'OK' to close this window.", "Runescape Araxxor Drop Logger | Good Bye!", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
@@ -179,30 +181,16 @@ public class LoggerInterface implements ActionListener{
 	}
        
 	
-    public void makeAndShowTable(Object[][] cell_information) {
-    	 Object lock = new Object();
+    public void makeAndShowTable(Object[][] cell_information) throws SQLException {
     	 JFrame frame = new JFrame();
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         
          LoggerTable table = new LoggerTable(cell_information);
          table.setOpaque(true); //content panes must be opaque
          frame.setContentPane(table);
-
-         //Display the window
+         JOptionPane.showMessageDialog(frame, "information",
+        		 "information", JOptionPane.INFORMATION_MESSAGE);
          frame.pack();
          frame.setVisible(true);
-         Thread t = new Thread() {
-             public void run() {
-                 synchronized(lock) {
-                     while (frame.isVisible())
-                         try {
-                             lock.wait();
-                         } catch (InterruptedException e) {
-                             e.printStackTrace();
-                         }
-                 }
-             }
-         };
-         t.start();
-         
     }
 }
