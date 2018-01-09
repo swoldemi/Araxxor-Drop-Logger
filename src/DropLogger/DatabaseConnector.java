@@ -64,6 +64,7 @@ public class DatabaseConnector {
 		while(this.myResult.next()){
 			length++;
 		}
+		this.myResult.close();
 		return length;
 	}
 }
