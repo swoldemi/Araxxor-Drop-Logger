@@ -68,16 +68,18 @@ public class LoggerInterface implements ActionListener{
 		System.out.println(pets);
 		connector.myResult.close();
 		
+		// Make a JFrame to host the menu
 		JFrame main_logger_interface = new JFrame(this.title + "| Please Select an Option");
 		main_logger_interface.setPreferredSize(new Dimension(560, 70));
 		main_logger_interface.setLayout(new GridLayout(1,3));
 		main_logger_interface.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main_logger_interface.setVisible(true);
 		
+		// Make a panel for the actual menu
 		JPanel logger_panel = new JPanel();
-		
 		main_logger_interface.add(logger_panel);
 		
+		// Put all of the buttons on the panel
 		JButton log_drop_button = new JButton("Log Drop");
 		logger_panel.add(log_drop_button);
 		log_drop_button.addActionListener(this);
@@ -89,31 +91,33 @@ public class LoggerInterface implements ActionListener{
 		JButton exit_button = new JButton("Exit");
 		logger_panel.add(exit_button);
 		exit_button.addActionListener(this);
+		
+		// Pack the buttons on the panel within the frame
 		main_logger_interface.pack();
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		//javax.swing.JButton[,162,5,85x26,alignmentX=0.0,alignmentY=0.5,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@349db8b9,flags=296,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,disabledSelectedIcon=,margin=javax.swing.plaf.InsetsUIResource[top=2,left=14,bottom=2,right=14],paintBorder=true,paintFocus=true,pressedIcon=,rolloverEnabled=true,rolloverIcon=,rolloverSelectedIcon=,selectedIcon=,text=Log Drop,defaultCapable=true]
 		// Get the items and their quantities and store them in instance variables
 		this.selection = ae.getSource().toString().split(",")[25].split("=")[1];
 		
+		// Begin interface logic - No need for an event loop!
 		if(selection.equals("Log Drop")){
-			
 			this.setDrops();
 			try {
 				connector.insertRow(this.user_name);
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		else if(selection.equals("View Log")){
 			try {
 				this.makeAndShowTable(this.getDrops());
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 		}
 		else if(selection.equals("Exit")){
 			System.exit(0);
@@ -183,16 +187,16 @@ public class LoggerInterface implements ActionListener{
 	}
 
 	public Object[][] getDrops() throws SQLException{
-		// get the current number of rows in the table
+		// Get the current number of rows in the table
 		int table_length = connector.getLength(this.user_name);
 		
-		// create an object to hold all of the cell information for each row
+		// Create an object to hold all of the cell information for each row
 		Object[][] cell_information = new Object[table_length][6];
 		
-		// get the current log of drops
+		// Get the current log of drops
 		connector.getTable(this.user_name); 
 		
-		// add each of the rows, using the cursor, to the 2D array to be used for the JFrame
+		// Add each of the rows, using the cursor, to the 2D array to be used for the JFrame
 		int row = 0;
 		while(connector.myResult.next()){
 			Object[] drop_table_row = new Object[]{Integer.parseInt(connector.myResult.getString("kill_number")), Integer.parseInt(connector.myResult.getString("arrows_pheromone")),
@@ -212,7 +216,7 @@ public class LoggerInterface implements ActionListener{
     	 JFrame frame = new JFrame(this.title + "| View Log");
          frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
          LoggerTable table = new LoggerTable(cell_information);
-         table.setOpaque(true); //content panes must be opaque
+         table.setOpaque(true);
          frame.setContentPane(table);
          frame.pack();
          frame.setVisible(true);
