@@ -1,5 +1,6 @@
 package DropLogger;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -11,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-
 public class Login extends JFrame implements ActionListener{
 	private String user_name;
 	private ImageIcon splash_image;
@@ -19,7 +19,7 @@ public class Login extends JFrame implements ActionListener{
 	private JLabel prompt;
 	private JTextField entry;
 	private JButton submit;
-	public volatile boolean waiting; 
+	public volatile boolean waiting; // Important that this boolean is volatile
 	
 	public Login(){
 		// Set up the splash image, text entry prompt, text field and submission button
@@ -50,6 +50,7 @@ public class Login extends JFrame implements ActionListener{
 		
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setSize(400, 400); 
+		this.getContentPane().setBackground(Color.BLACK);
 		this.setVisible(true);
 		
 	}
@@ -60,6 +61,7 @@ public class Login extends JFrame implements ActionListener{
 		System.out.println(request);
 		if(request.equals("Login")){
 			this.setVisible(false);
+			this.dispose();
 			this.setUsername();
 			this.waiting = false;
 		}
