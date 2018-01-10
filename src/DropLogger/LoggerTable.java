@@ -8,12 +8,13 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 
-public class LoggerTable extends JPanel{
+public class LoggerTable extends JPanel  {
 	
-	LoggerTable(Object[][] table_contents){
-		// Define the default GridLayout in the parent class
+	LoggerTable(Object[][] table_contents){	
+		// Parent grid construction
 		super(new GridLayout(1,0));
 		
 		// Define column_names
@@ -23,7 +24,8 @@ public class LoggerTable extends JPanel{
 		JTable table = new JTable(table_contents, column_names);
 		table.setPreferredScrollableViewportSize(new Dimension(700, 70));
 		table.setFillsViewportHeight(true);
-
+		table.setAutoCreateRowSorter(true); // This is really cool
+		
 		//Create the scroll pane and add the table to it
 		JScrollPane scroll_pane = new JScrollPane(table);
 
