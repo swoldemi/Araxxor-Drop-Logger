@@ -2,6 +2,7 @@ package DropLogger;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
 public class LoggerInterface implements ActionListener{
 	private String user_name;
 	private DatabaseConnector connector;
@@ -24,8 +24,10 @@ public class LoggerInterface implements ActionListener{
 	String pets;
 	String selection;
 	String title;
+	Dimension window_dimension;
 	
 	boolean DEBUG = false;
+	
 	LoggerInterface(String name, DatabaseConnector connector) throws SQLException{
 		this.user_name = name;
 		this.connector = connector;
@@ -36,6 +38,7 @@ public class LoggerInterface implements ActionListener{
 		this.pets = null;
 		this.selection = null;
 		this.title = "Runescape Araxxor Drop Logger ";
+		this.window_dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	}
 	
 	public void Logger() throws SQLException{
@@ -88,8 +91,9 @@ public class LoggerInterface implements ActionListener{
 		logger_panel.add(exit_button);
 		exit_button.addActionListener(this);
 		
-		// Pack the buttons on the panel within the frame
+		// Pack the buttons on the panel within the frame and center the frame
 		main_logger_interface.pack();
+		main_logger_interface.setLocationRelativeTo(null);
 	}
 	
 	@Override
