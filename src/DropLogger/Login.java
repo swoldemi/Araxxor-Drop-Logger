@@ -16,13 +16,13 @@ import javax.swing.JTextField;
 
 
 public class Login extends JFrame implements ActionListener{
-	private String user_name = "";
+	private String user_name;
 	private ImageIcon splash_image;
 	private JLabel image_label;
 	private JLabel prompt;
 	private JTextField entry;
 	private JButton submit;
-	public volatile boolean waiting;
+	public volatile boolean waiting; 
 	
 	public Login(){
 		// Set up the splash image, text entry prompt, text field and submission button
