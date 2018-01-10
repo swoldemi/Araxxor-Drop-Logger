@@ -2,24 +2,19 @@ package DropLogger;
 
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
-public class Main {
-	public static String sanitizeUsername(String user_name){
-		if(user_name.contains(" ")){
-			user_name.replace(" ", "_"); // replace spaces with underscores
-		}
-		return user_name;
-	}
-	
+public class Main{
 	public static void main(String[] args) {
+		// Create a Login instance and check for spaces in the username for SQL table creation
+		Login login = new Login();
+		
+		// Wait without threading but using a synchronized Login.actionPerformed method
+		login.waiting = true;
+		while(login.waiting){
+			login.waiting = login.listen();
+		}
+		
+		String user_name = login.sanitizeUsername(login.getUsername());
 		DatabaseConnector connector = new DatabaseConnector();
-		
-		// Request user name for login
-		String user_name = JOptionPane.showInputDialog("Please enter your username to view your drop log.");
-		
-		// Check for spaces in the username for SQL table creation
-		sanitizeUsername(user_name);
 		
 		// Define a reference for the LoggerInterface
     	LoggerInterface user = null;
