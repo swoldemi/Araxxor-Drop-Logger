@@ -31,6 +31,7 @@ public class LoggerInterface implements ActionListener{
 	String[] last_kill;
 	String pets;
 	String selection;
+	String title;
 	
 	LoggerInterface(String name, DatabaseConnector connector) throws SQLException{
 		this.user_name = name;
@@ -41,6 +42,7 @@ public class LoggerInterface implements ActionListener{
 		this.last_kill = null;
 		this.pets = null;
 		this.selection = null;
+		this.title = "Runescape Araxxor Drop Logger ";
 	}
 	
 	public void Logger() throws SQLException{
@@ -66,7 +68,7 @@ public class LoggerInterface implements ActionListener{
 		System.out.println(pets);
 		connector.myResult.close();
 		
-		JFrame main_logger_interface = new JFrame("Runescape Araxxor Drop Logger | Please Select an Option");
+		JFrame main_logger_interface = new JFrame(this.title + "| Please Select an Option");
 		main_logger_interface.setPreferredSize(new Dimension(560, 70));
 		main_logger_interface.setLayout(new GridLayout(1,3));
 		main_logger_interface.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -159,7 +161,7 @@ public class LoggerInterface implements ActionListener{
 		
 		// Show panel
 		int logger_panel_selection = JOptionPane.showConfirmDialog(null, logger_panel, 
-		           "Runescape Araxxor Drop Logger | Log Drop", JOptionPane.OK_CANCEL_OPTION);
+				this.title + "| Log Drop", JOptionPane.OK_CANCEL_OPTION);
 		
 		// Get the static text fields (kill number and arrow/pheromone count) and quantities
 		if(logger_panel_selection == 0){
@@ -207,7 +209,7 @@ public class LoggerInterface implements ActionListener{
        
 	
     public void makeAndShowTable(Object[][] cell_information){
-    	 JFrame frame = new JFrame("Runescape Araxxor Drop Logger | View Log");
+    	 JFrame frame = new JFrame(this.title + "| View Log");
          frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
          LoggerTable table = new LoggerTable(cell_information);
          table.setOpaque(true); //content panes must be opaque
