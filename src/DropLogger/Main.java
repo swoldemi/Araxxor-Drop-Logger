@@ -8,7 +8,7 @@ public class Main{
 		Login login_interface = new Login();
 		
 		// Wait without threading but using a synchronized Login.actionPerformed method
-		login_interface.waiting = true;
+		login_interface.waiting = true; // Highly volatile boolean
 		while(login_interface.waiting){
 			login_interface.waiting = login_interface.listen();
 		}
