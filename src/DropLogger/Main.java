@@ -5,15 +5,15 @@ import java.sql.SQLException;
 public class Main{
 	public static void main(String[] args) {
 		// Create a Login instance and check for spaces in the username for SQL table creation
-		Login login = new Login();
+		Login login_interface = new Login();
 		
 		// Wait without threading but using a synchronized Login.actionPerformed method
-		login.waiting = true;
-		while(login.waiting){
-			login.waiting = login.listen();
+		login_interface.waiting = true;
+		while(login_interface.waiting){
+			login_interface.waiting = login_interface.listen();
 		}
 		
-		String user_name = login.sanitizeUsername(login.getUsername());
+		String user_name = login_interface.sanitizeUsername(login_interface.getUsername());
 		DatabaseConnector connector = new DatabaseConnector();
 		
 		// Define a reference for the LoggerInterface
