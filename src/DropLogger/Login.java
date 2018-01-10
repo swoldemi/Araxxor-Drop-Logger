@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class Login extends JFrame implements ActionListener{
+	private static final long serialVersionUID = -3628098483298498297L;
 	private String user_name;
 	private ImageIcon splash_image;
 	private JLabel image_label;

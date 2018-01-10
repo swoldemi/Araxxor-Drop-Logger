@@ -9,7 +9,8 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
 public class LoggerTable extends JPanel  {
-	
+	private static final long serialVersionUID = -4482263346660694338L;
+
 	LoggerTable(Object[][] table_contents){	
 		// Parent grid construction
 		super(new GridLayout(1,0));
@@ -27,7 +28,7 @@ public class LoggerTable extends JPanel  {
 		JScrollPane scroll_pane = new JScrollPane(table);
 
 		//Add the scroll pane to this panel
-    	add(scroll_pane);
+    	this.add(scroll_pane);
     	
     	// Resize each column
     	TableColumn column = null;
