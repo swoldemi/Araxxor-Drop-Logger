@@ -27,18 +27,23 @@ import javax.swing.table.TableColumn;
 public class LoggerInterface implements ActionListener{
 	private String user_name;
 	private DatabaseConnector connector;
-	public boolean exit = false;
+	public boolean exit;
+	String[] last_kill;
+	String pets;
+	String selection;
 	
 	LoggerInterface(String name, DatabaseConnector connector) throws SQLException{
 		this.user_name = name;
 		this.connector = connector;
 		connector.makeTable(this.user_name);
+		
+		this.exit = false;
+		this.last_kill = null;
+		this.pets = null;
+		this.selection = null;
 	}
 	
 	public void Logger() throws SQLException{
-		String[] last_kill = null;
-		String pets = null;
-		
 		// First, get the current state of the main table and get the last row
 		connector.getTable(this.user_name);
 		connector.myResult.last();
@@ -89,7 +94,7 @@ public class LoggerInterface implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		//javax.swing.JButton[,162,5,85x26,alignmentX=0.0,alignmentY=0.5,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@349db8b9,flags=296,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,disabledSelectedIcon=,margin=javax.swing.plaf.InsetsUIResource[top=2,left=14,bottom=2,right=14],paintBorder=true,paintFocus=true,pressedIcon=,rolloverEnabled=true,rolloverIcon=,rolloverSelectedIcon=,selectedIcon=,text=Log Drop,defaultCapable=true]
 		// Get the items and their quantities and store them in instance variables
-		String selection = ae.getSource().toString().split(",")[25].split("=")[1];
+		this.selection = ae.getSource().toString().split(",")[25].split("=")[1];
 		
 		if(selection.equals("Log Drop")){
 			
@@ -204,7 +209,6 @@ public class LoggerInterface implements ActionListener{
     public void makeAndShowTable(Object[][] cell_information){
     	 JFrame frame = new JFrame("Runescape Araxxor Drop Logger | View Log");
          frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-         
          LoggerTable table = new LoggerTable(cell_information);
          table.setOpaque(true); //content panes must be opaque
          frame.setContentPane(table);
