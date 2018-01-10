@@ -5,3 +5,4 @@
  - http://runescape.wikia.com/wiki/Noxious_longbow
  - http://runescape.wikia.com/wiki/Noxious_scythe
  - http://runescape.wikia.com/wiki/Noxious_staff
+ - http://oldschoolrunescape.wikia.com/wiki/Varrock_census_records
