@@ -33,6 +33,7 @@ public class LoggerInterface implements ActionListener{
 	String selection;
 	String title;
 	
+	boolean DEBUG = false;
 	LoggerInterface(String name, DatabaseConnector connector) throws SQLException{
 		this.user_name = name;
 		this.connector = connector;
@@ -54,8 +55,10 @@ public class LoggerInterface implements ActionListener{
 				connector.myResult.getString("charms"), connector.myResult.getString("rocktails_sarabrews_overloads"), 
 				connector.myResult.getString("main_loot"), connector.myResult.getString("unique_drops")};
 		
-		for(String item: last_kill){
-			System.out.print(item + " ");
+		if(DEBUG){
+			for(String item: last_kill){
+				System.out.print(item + " ");
+			}
 		}
 		connector.myResult.close();
 		
