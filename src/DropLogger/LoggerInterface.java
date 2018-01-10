@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 import java.sql.*;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -60,25 +61,61 @@ public class LoggerInterface implements ActionListener{
 		System.out.println(pets);
 		connector.myResult.close();
 		
-		while(!this.exit){
-			String[] buttons = {"1", "2", "3"};
-			int task = JOptionPane.showOptionDialog(null, 
-					"Welcome " + this.user_name + "!\nWhat would you like to do?\n"
-					+ "1: Log kill\n2: View drop log\n3: Exit",
-					"Runescape Araxxor Drop Logger | Please Select an Option:", 
-					JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, buttons, buttons[0]) +1;
+		JFrame main_logger_interface = new JFrame("Runescape Araxxor Drop Logger | Please Select an Option");
+		main_logger_interface.setPreferredSize(new Dimension(560, 70));
+		main_logger_interface.setLayout(new GridLayout(1,3));
+		main_logger_interface.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		main_logger_interface.setVisible(true);
+		
+		JPanel logger_panel = new JPanel();
+		
+		main_logger_interface.add(logger_panel);
+		
+		JButton log_drop_button = new JButton("Log Drop");
+		logger_panel.add(log_drop_button);
+		log_drop_button.addActionListener(this);
+		
+		JButton view_log_button = new JButton("View Log");
+		logger_panel.add(view_log_button);
+		view_log_button.addActionListener(this);
+		
+		JButton exit_button = new JButton("Exit");
+		logger_panel.add(exit_button);
+		exit_button.addActionListener(this);
+		main_logger_interface.pack();
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		//javax.swing.JButton[,162,5,85x26,alignmentX=0.0,alignmentY=0.5,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@349db8b9,flags=296,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,disabledSelectedIcon=,margin=javax.swing.plaf.InsetsUIResource[top=2,left=14,bottom=2,right=14],paintBorder=true,paintFocus=true,pressedIcon=,rolloverEnabled=true,rolloverIcon=,rolloverSelectedIcon=,selectedIcon=,text=Log Drop,defaultCapable=true]
+		// Get the items and their quantities and store them in instance variables
+		String selection = null;
+		try{
+			selection = ae.getSource().toString().split(",")[25].split("=")[1];
+		}
+		catch (ArrayIndexOutOfBoundsException e){
+			System.out.println(e);
+		}
+		if(selection.equals("Log Drop")){
 			
-			if(task == 1){
-				this.setDrops(); // get the drops to be entered into the table from the user
-				connector.insertRow(this.user_name); // update the user's table
+			this.setDrops();
+			try {
+				connector.insertRow(this.user_name);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			else if(task == 2){
+		}
+		else if(selection.equals("View Log")){
+			try {
 				this.makeAndShowTable(this.getDrops());
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			else if(task == 3){
-				this.exit = true;
-				JOptionPane.showMessageDialog(null, "Exiting RADL. Click 'OK' to close this window.", "Runescape Araxxor Drop Logger | Good Bye!", JOptionPane.INFORMATION_MESSAGE);
-			}
+			
+		}
+		else if(selection.equals("Exit")){
+			System.exit(0);
 		}
 	}
 	
@@ -147,14 +184,7 @@ public class LoggerInterface implements ActionListener{
 			Drops.unique_drops_drop = null;
 		}
 	}
-	
-	@Override
-	public void actionPerformed(ActionEvent ae) {
-		// Get the items and their quantities and store them in instance variables
-		String get_selections = ae.getSource().toString().split("selectedItemReminder=")[1].replace("]", "");
-		
-	}
-	
+
 	public Object[][] getDrops() throws SQLException{
 		// get the current number of rows in the table
 		int table_length = connector.getLength(this.user_name);
@@ -181,7 +211,7 @@ public class LoggerInterface implements ActionListener{
 	}
        
 	
-    public void makeAndShowTable(Object[][] cell_information) throws SQLException {
+    public void makeAndShowTable(Object[][] cell_information){
     	 JFrame frame = new JFrame();
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          
