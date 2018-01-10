@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableColumn;
 
 public class LoggerTable extends JPanel{
 	
@@ -16,11 +17,11 @@ public class LoggerTable extends JPanel{
 		super(new GridLayout(1,0));
 		
 		// Define column_names
-		String[] column_names = {"Kill #", "Arrows/Pheromone", "Charms", "Food/Potions", "Loot", "Unique Loot"};
+		String[] column_names = {"Kill #", "Arrows", "Charms", "Food/Potions", "Loot", "Unique Loot"};
 		
 		// Create the JTable
-		final JTable table = new JTable(table_contents, column_names);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		JTable table = new JTable(table_contents, column_names);
+		table.setPreferredScrollableViewportSize(new Dimension(700, 70));
 		table.setFillsViewportHeight(true);
 
 		//Create the scroll pane and add the table to it
@@ -28,5 +29,17 @@ public class LoggerTable extends JPanel{
 
 		//Add the scroll pane to this panel
     	add(scroll_pane);
+    	
+    	// Resize each column
+    	TableColumn column = null;
+    	// Size each column
+        for(int x = 0; x < 6; x++){
+        	column = table.getColumnModel().getColumn(x);
+        	if(x == 0 || x == 1)
+        		column.setPreferredWidth(30);
+        	if(x >= 3)
+        		column.setPreferredWidth(150);
+        }
+    	
 	}		
 }
