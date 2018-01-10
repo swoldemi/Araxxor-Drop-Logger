@@ -125,10 +125,6 @@ public class LoggerInterface implements ActionListener{
 		JComboBox<String> food_potions_choices = new JComboBox<String>(Drops.food_potions);
 		JComboBox<String> main_loot_choices = new JComboBox<String>(Drops.main_loot);
 		JComboBox<String> unique_drops_choices = new JComboBox<String>(Drops.unique_drops);
-		charms_choices.addActionListener(this);
-		food_potions_choices.addActionListener(this);
-		main_loot_choices.addActionListener(this);
-		unique_drops_choices.addActionListener(this);
 		
 		// Add drop category quantity fields - unique drops are dropped alone
 		JTextField charms_choices_count = new JTextField(1);
