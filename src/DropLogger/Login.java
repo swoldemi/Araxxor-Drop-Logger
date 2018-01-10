@@ -39,15 +39,17 @@ public class Login extends JFrame implements ActionListener{
 		
 		this.entry = new JTextField(1);
 		c.gridy = 2;
+		c.ipadx = 100;
 		this.add(this.entry, c);
 		
 		this.submit = new JButton("Login");
 		c.gridy = 3;
+		c.ipadx = 0; // Reset padding
 		this.add(this.submit, c);
 		this.submit.addActionListener(this);
 		
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setSize(500, 500); 
+		this.setSize(400, 400); 
 		this.setVisible(true);
 		
 	}
