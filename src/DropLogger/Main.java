@@ -11,27 +11,32 @@ public class Main {
 		}
 		return user_name;
 	}
+	
 	public static void main(String[] args) {
 		DatabaseConnector connector = new DatabaseConnector();
 		
 		// Request user name for login
 		String user_name = JOptionPane.showInputDialog("Please enter your username to view your drop log.");
 		
-		// check for spaces in the username for SQL table creation
+		// Check for spaces in the username for SQL table creation
 		sanitizeUsername(user_name);
 		
-		// Begin the logger
+		// Define a reference for the LoggerInterface
     	LoggerInterface user = null;
+    	
     	// Make an instance of the interface and attempt to make a table using the username provided on login
 		try {
 			user = new LoggerInterface(user_name, connector);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		// Start the logger
 		try {
 			user.Logger();
 		} catch (SQLException e) {
-			e.printStackTrace();
+				e.printStackTrace();
 		}
 	}
 }
+
