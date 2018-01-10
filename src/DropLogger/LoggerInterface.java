@@ -1,15 +1,11 @@
 package DropLogger;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+
 import java.sql.*;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,12 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
+
 
 public class LoggerInterface implements ActionListener{
 	private String user_name;
@@ -68,7 +60,8 @@ public class LoggerInterface implements ActionListener{
 		pets = connector.myResult.getString("araxyte_pet")
 					+ "|" + connector.myResult.getString("barry")
 					+ "|" + connector.myResult.getString("mallory");
-		System.out.println(pets);
+		if(DEBUG)
+			System.out.println(pets);
 		connector.myResult.close();
 		
 		// Make a JFrame to host the menu
@@ -213,9 +206,8 @@ public class LoggerInterface implements ActionListener{
 		connector.myResult.close();
 		return cell_information;
 	}
-       
 	
-    public void makeAndShowTable(Object[][] cell_information){
+    public void makeAndShowTable(Object[][] cell_information) {
     	 JFrame frame = new JFrame(this.title + "| View Log");
          frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
          LoggerTable table = new LoggerTable(cell_information);
