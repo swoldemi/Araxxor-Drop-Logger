@@ -89,20 +89,14 @@ public class LoggerInterface implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		//javax.swing.JButton[,162,5,85x26,alignmentX=0.0,alignmentY=0.5,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@349db8b9,flags=296,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,disabledSelectedIcon=,margin=javax.swing.plaf.InsetsUIResource[top=2,left=14,bottom=2,right=14],paintBorder=true,paintFocus=true,pressedIcon=,rolloverEnabled=true,rolloverIcon=,rolloverSelectedIcon=,selectedIcon=,text=Log Drop,defaultCapable=true]
 		// Get the items and their quantities and store them in instance variables
-		String selection = null;
-		try{
-			selection = ae.getSource().toString().split(",")[25].split("=")[1];
-		}
-		catch (ArrayIndexOutOfBoundsException e){
-			System.out.println(e);
-		}
+		String selection = ae.getSource().toString().split(",")[25].split("=")[1];
+		
 		if(selection.equals("Log Drop")){
 			
 			this.setDrops();
 			try {
 				connector.insertRow(this.user_name);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -160,7 +154,7 @@ public class LoggerInterface implements ActionListener{
 		
 		// Show panel
 		int logger_panel_selection = JOptionPane.showConfirmDialog(null, logger_panel, 
-		           "Runescape Araxxor Drop Logger | Log", JOptionPane.OK_CANCEL_OPTION);
+		           "Runescape Araxxor Drop Logger | Log Drop", JOptionPane.OK_CANCEL_OPTION);
 		
 		// Get the static text fields (kill number and arrow/pheromone count) and quantities
 		if(logger_panel_selection == 0){
@@ -208,14 +202,12 @@ public class LoggerInterface implements ActionListener{
        
 	
     public void makeAndShowTable(Object[][] cell_information){
-    	 JFrame frame = new JFrame();
-         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	 JFrame frame = new JFrame("Runescape Araxxor Drop Logger | View Log");
+         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
          
          LoggerTable table = new LoggerTable(cell_information);
          table.setOpaque(true); //content panes must be opaque
          frame.setContentPane(table);
-         JOptionPane.showMessageDialog(frame, "information",
-        		 "information", JOptionPane.INFORMATION_MESSAGE);
          frame.pack();
          frame.setVisible(true);
     }
