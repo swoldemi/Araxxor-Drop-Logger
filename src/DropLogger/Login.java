@@ -28,7 +28,7 @@ public class Login extends JFrame implements ActionListener{
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		this.splash_image = new ImageIcon(getClass().getResource("splash.png"));
+		this.splash_image = new ImageIcon(getClass().getResource("splash-high-res-small.png"));
 		this.image_label = new JLabel(splash_image);
 		c.gridx = 1;
 		c.gridy = 0;
@@ -49,9 +49,9 @@ public class Login extends JFrame implements ActionListener{
 		this.add(this.submit, c);
 		this.submit.addActionListener(this);
 		
-		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setSize(400, 400); 
-		this.getContentPane().setBackground(Color.BLACK);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(480, 360);
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		
 	}
