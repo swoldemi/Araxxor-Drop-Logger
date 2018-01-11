@@ -10,6 +10,8 @@ public class DatabaseConnector {
 	public Statement myState;
 	public ResultSet myResult;
 	
+	private boolean DEBUG = true;
+	
 	DatabaseConnector(){
     	try {
 			this.myConn = DriverManager.getConnection(this.url, this.username, this.password);
@@ -19,6 +21,9 @@ public class DatabaseConnector {
 		}    	
 	}
 	
+	/*
+	 * Make tables for the user on login
+	 */
 	public void makeTable(String user_name) throws SQLException{
 		String make_main_table = "CREATE TABLE IF NOT EXISTS " + user_name + "("
 						+ "kill_number int, "
@@ -38,13 +43,16 @@ public class DatabaseConnector {
 	}
 	
 	/* 
-	 * Get the current state of the table
+	 * Get the current state of the main drop table
 	 */
 	public void getTable(String user_name) throws SQLException{
 		String select_all = "SELECT * FROM " + user_name;
 		this.myResult = this.myState.executeQuery(select_all); 
 	}
 	
+	/*
+	 * Insert a row into the main drop table
+	 */
 	public void insertRow(String table_name) throws SQLException{
 		//INSERT INTO data_file VALUES(1, 74, "12 Blue Charm", "12 Saradomin brew flask (6)", "220 Onyx bolts", null)
 		String insertion_query = "INSERT INTO " + table_name + " VALUES("
@@ -55,8 +63,21 @@ public class DatabaseConnector {
 				+ "'" + Drops.main_loot_drop + "', "
 				+ "'" + Drops.unique_drops_drop + "')";
 		this.myState.executeUpdate(insertion_query);
+		
+		// Check the table for pets
+		// This can only happen once per logging - multi-pet drops are impossible
+		if(DEBUG)
+			System.out.println(Drops.pet_drop);
+		
+		for(int x = 1; x <= 3; x++){
+			if(Drops.pet_drop.equals(Drops.pets[x]))
+				this.updatePetsTable(table_name);
+		}
 	}
 	
+	/*
+	 * Get the current number of rows in the main table
+	 */
 	public int getLength(String table_name) throws SQLException{
 		int length = 0;
 		String selection_query = "SELECT kill_number FROM " + table_name;
@@ -68,8 +89,53 @@ public class DatabaseConnector {
 		return length;
 	}
 	
+	/*
+	 * Get the state of the pets table 
+	 */
 	public void getPetsTable(String table_name) throws SQLException{
 		String selection_query = "SELECT * FROM " + table_name + "_pets";
 		this.myResult = this.myState.executeQuery(selection_query);
+	}
+	
+	/*
+	 * Update the pets table since a new pet was dropped
+	 */
+	public void updatePetsTable(String table_name) throws SQLException{
+		// Get the current state of the table
+		this.getPetsTable(table_name);
+		
+		// Check if the user has gotten any pets previously
+		this.myResult.next();
+		String[] hold_pets = new String[3];
+		hold_pets[0] = this.myResult.getString("araxyte_pet");
+		hold_pets[1] = this.myResult.getString("barry");
+		hold_pets[2] = this.myResult.getString("mallory");
+		this.myResult.close();
+		
+		if(DEBUG){
+			System.out.println(hold_pets[1]);
+		}
+		
+		// Delete the old row
+		this.myState.executeUpdate("DELETE FROM " + table_name + "_pets LIMIT 1");
+		
+		// Check previous pets and the pet that was just received
+		if(hold_pets[0].equals("0")){
+			if(Drops.pet_drop.equals(Drops.pets[1]))
+					hold_pets[0] = "1"; // An Araxyte pet was received
+		}
+		if(hold_pets[1].equals("0")){
+			if(Drops.pet_drop.equals(Drops.pets[2]))
+					hold_pets[1] = "1"; // Barry was received
+		}
+		if(hold_pets[2].equals("0")){
+			if(Drops.pet_drop.equals(Drops.pets[3]))
+					hold_pets[2] = "1"; // Mallory pet was received
+		}
+		
+		// Form the new row
+		String update_pets = "INSERT INTO " + table_name + "_pets VALUES(" + 
+					hold_pets[0] + ", " + hold_pets[1] + ", " + hold_pets[2] + ")";
+		this.myState.executeUpdate(update_pets);
 	}
 }
