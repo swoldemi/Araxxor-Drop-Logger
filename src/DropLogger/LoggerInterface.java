@@ -225,13 +225,13 @@ public class LoggerInterface implements ActionListener{
 	}
 	
     public void makeAndShowTable(Object[][] cell_information) {
-    	 JFrame frame = new JFrame(this.title + "| View Log");
-         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-         LoggerTable table = new LoggerTable(cell_information);
-         table.setOpaque(true);
-         frame.setContentPane(table);
-         frame.pack();
-         frame.setIconImage(this.window_icon.getImage());
-         frame.setVisible(true);
+    	 JFrame table_frame = new JFrame(this.title + "| View Log");
+    	 table_frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+         LoggerTable logger_table = new LoggerTable(cell_information);
+         logger_table.setOpaque(true);
+         table_frame.setContentPane(logger_table);
+         table_frame.pack();
+         table_frame.setIconImage(this.window_icon.getImage());
+         table_frame.setVisible(true);
     }
 }
