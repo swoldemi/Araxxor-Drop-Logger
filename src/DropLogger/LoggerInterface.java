@@ -93,6 +93,10 @@ public class LoggerInterface implements ActionListener{
 		logger_panel.add(exit_button);
 		exit_button.addActionListener(this);
 		
+		JButton view_pets_button = new JButton("View Pets");
+		logger_panel.add(exit_button);
+		exit_button.addActionListener(this);
+		
 		// Pack the buttons on the panel within the frame and center the frame
 		main_logger_interface.pack();
 		main_logger_interface.setLocationRelativeTo(null);
@@ -135,6 +139,7 @@ public class LoggerInterface implements ActionListener{
 		JComboBox<String> food_potions_choices = new JComboBox<String>(Drops.food_potions);
 		JComboBox<String> main_loot_choices = new JComboBox<String>(Drops.main_loot);
 		JComboBox<String> unique_drops_choices = new JComboBox<String>(Drops.unique_drops);
+		JComboBox<String> pets_choices = new JComboBox<String>(Drops.pets);
 		
 		// Add drop category quantity fields - unique drops are dropped alone
 		JTextField charms_choices_count = new JTextField(1);
@@ -148,7 +153,7 @@ public class LoggerInterface implements ActionListener{
 		// Add everything to a JPanel
 		JPanel logger_panel = new JPanel();
 		logger_panel.setPreferredSize(new Dimension(280, 200));
-		logger_panel.setLayout(new GridLayout(9,2));
+		logger_panel.setLayout(new GridLayout(10,2));
 		logger_panel.add(new JLabel("Kill number:"));
 		logger_panel.add(kill_number_field);
 		logger_panel.add(new JLabel("Arrows/Pheromone:"));
@@ -167,6 +172,8 @@ public class LoggerInterface implements ActionListener{
 		logger_panel.add(main_loot_count);
 		logger_panel.add(new JLabel("Unique drop:"));
 		logger_panel.add(unique_drops_choices);
+		logger_panel.add(new JLabel("Pets:"));
+		logger_panel.add(pets_choices);
 		
 		// Show panel
 		int logger_panel_selection = JOptionPane.showConfirmDialog(null, logger_panel, 
