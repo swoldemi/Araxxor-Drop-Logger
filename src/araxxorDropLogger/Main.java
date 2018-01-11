@@ -1,4 +1,4 @@
-package DropLogger;
+package araxxorDropLogger;
 
 import java.sql.SQLException;
 

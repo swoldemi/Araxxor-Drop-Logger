@@ -1,4 +1,4 @@
-package DropLogger;
+package araxxorDropLogger;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

@@ -1,4 +1,4 @@
-package DropLogger;
+package araxxorDropLogger;
 
 import java.sql.*;
 
@@ -10,7 +10,7 @@ public class DatabaseConnector {
 	public Statement myState;
 	public ResultSet myResult;
 	
-	private boolean DEBUG = true;
+	private boolean DEBUG = false;
 	
 	DatabaseConnector(){
     	try {

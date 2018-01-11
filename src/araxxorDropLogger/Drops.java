@@ -1,4 +1,4 @@
-package DropLogger;
+package araxxorDropLogger;
 
 public class Drops {
 	// Drop name constants
