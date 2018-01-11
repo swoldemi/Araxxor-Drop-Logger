@@ -18,6 +18,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class LoggerInterface implements ActionListener{
+	private final int main_logger_x = 560;
+	private final int main_logger_y = 70;
+	private final int logger_pane_x = 380;
+	private final int logger_pane_y = 350;
+	private final int pets_frame_x = 425;
+	private final int pets_frame_y = 150;
 	private String user_name;
 	private DatabaseConnector connector;
 	private ImageIcon window_icon;
@@ -72,7 +78,7 @@ public class LoggerInterface implements ActionListener{
 		
 		// Make a JFrame to host the menu
 		JFrame main_logger_interface = new JFrame(this.title + "| Please Select an Option");
-		main_logger_interface.setPreferredSize(new Dimension(560, 70));
+		main_logger_interface.setPreferredSize(new Dimension(this.main_logger_x, this.main_logger_y));
 		main_logger_interface.setLayout(new GridLayout(1,3));
 		main_logger_interface.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main_logger_interface.setVisible(true);
@@ -155,7 +161,7 @@ public class LoggerInterface implements ActionListener{
 		
 		// Add everything to a JPanel
 		JPanel logger_panel = new JPanel();
-		logger_panel.setPreferredSize(new Dimension(380, 250));
+		logger_panel.setPreferredSize(new Dimension(this.logger_pane_x, this.logger_pane_y));
 		logger_panel.setLayout(new GridLayout(10,2));
 		logger_panel.add(new JLabel("Kill number:"));
 		logger_panel.add(kill_number_field);
@@ -252,7 +258,7 @@ public class LoggerInterface implements ActionListener{
     		
     	// Set up another JFrame
     	JFrame pets_frame = new JFrame(this.title + "| View Pets");
-    	pets_frame.setPreferredSize(new Dimension(425, 150));
+    	pets_frame.setPreferredSize(new Dimension(this.pets_frame_x, this.pets_frame_y));
     	pets_frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     	pets_frame.setLayout(new GridLayout(4,1));
     	pets_frame.add(new JLabel("~You currently have these pets~", SwingConstants.CENTER));
@@ -268,10 +274,8 @@ public class LoggerInterface implements ActionListener{
     	connector.myResult.close();
     	
     	pets_frame.pack();
-    	
     	pets_frame.setLocationRelativeTo(null);
     	pets_frame.setIconImage(this.window_icon.getImage());
     	pets_frame.setVisible(true);
-    	
     }
 }
