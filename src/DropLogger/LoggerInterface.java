@@ -89,12 +89,12 @@ public class LoggerInterface implements ActionListener{
 		logger_panel.add(view_log_button);
 		view_log_button.addActionListener(this);
 		
-		JButton exit_button = new JButton("Exit");
-		logger_panel.add(exit_button);
-		exit_button.addActionListener(this);
-		
 		JButton view_pets_button = new JButton("View Pets");
 		logger_panel.add(view_pets_button);
+		view_pets_button.addActionListener(this);
+		
+		JButton exit_button = new JButton("Exit");
+		logger_panel.add(exit_button);
 		exit_button.addActionListener(this);
 		
 		// Pack the buttons on the panel within the frame and center the frame
