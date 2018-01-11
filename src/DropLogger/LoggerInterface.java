@@ -94,7 +94,7 @@ public class LoggerInterface implements ActionListener{
 		exit_button.addActionListener(this);
 		
 		JButton view_pets_button = new JButton("View Pets");
-		logger_panel.add(exit_button);
+		logger_panel.add(view_pets_button);
 		exit_button.addActionListener(this);
 		
 		// Pack the buttons on the panel within the frame and center the frame
@@ -196,6 +196,7 @@ public class LoggerInterface implements ActionListener{
 		if(Drops.unique_drops_drop.equals("none")){
 			Drops.unique_drops_drop = null;
 		}
+		Drops.pet_drop = pets_choices.getSelectedItem().toString();
 	}
 
 	public Object[][] getDrops() throws SQLException{
