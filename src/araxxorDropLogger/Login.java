@@ -35,7 +35,7 @@ public class Login extends JFrame implements ActionListener{
 		c.gridy = 0;
 		this.add(this.image_label , c);
 		
-		this.prompt = new JLabel("Please enter your username");
+		this.prompt = new JLabel("Please enter your username:");
 		c.gridy = 1;
 		this.add(this.prompt, c);
 		
@@ -69,10 +69,14 @@ public class Login extends JFrame implements ActionListener{
 		}
 		
 		if(request.equals("Login")){
-			this.setVisible(false);
-			this.dispose();
-			this.setUsername();
-			this.waiting = false;
+			if(this.entry.getText().equals(""))
+				this.prompt.setText("Please actually type your username:");
+			else{
+				this.setVisible(false);
+				this.dispose();
+				this.setUsername();
+				this.waiting = false;
+			}
 		}
 	}
 	 public boolean listen(){
