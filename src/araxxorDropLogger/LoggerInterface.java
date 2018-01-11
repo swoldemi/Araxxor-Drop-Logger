@@ -113,12 +113,6 @@ public class LoggerInterface implements ActionListener{
 		// Begin interface logic - No need for an event loop!
 		if(selection.equals("Log Drop")){
 			this.setDrops();
-			try {
-				connector.insertRow(this.user_name);
-			} 
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		else if(selection.equals("View Log")){
 			try {
@@ -152,7 +146,7 @@ public class LoggerInterface implements ActionListener{
 		
 		// Add everything to a JPanel
 		JPanel logger_panel = new JPanel();
-		logger_panel.setPreferredSize(new Dimension(280, 200));
+		logger_panel.setPreferredSize(new Dimension(380, 250));
 		logger_panel.setLayout(new GridLayout(10,2));
 		logger_panel.add(new JLabel("Kill number:"));
 		logger_panel.add(kill_number_field);
@@ -177,26 +171,34 @@ public class LoggerInterface implements ActionListener{
 		
 		// Show panel
 		int logger_panel_selection = JOptionPane.showConfirmDialog(null, logger_panel, 
-				this.title + "| Log Drop", JOptionPane.OK_CANCEL_OPTION);
+				this.title + "| Log Drop | Logged in as " + this.user_name, JOptionPane.OK_CANCEL_OPTION);
 		
-		// Get the static text fields (kill number and arrow/pheromone count) and quantities
+		// Get the static text fields (kill number and arrow/pheromone count), combo box selections
+		// and log them only if the user selected OK
 		if(logger_panel_selection == 0){
-			Drops.kill_number = Integer.parseInt(kill_number_field.getText());
-			Drops.arrow_pheromone_drop = Integer.parseInt(arrows_pheromone_field.getText());
-			Drops.charms_quantity = charms_choices_count.getText();
-			Drops.food_potions_quantity = food_potions_count.getText();
-			Drops.main_loot_quantity = main_loot_count.getText();
+				Drops.kill_number = Integer.parseInt(kill_number_field.getText());
+				Drops.arrow_pheromone_drop = Integer.parseInt(arrows_pheromone_field.getText());
+				Drops.charms_quantity = charms_choices_count.getText();
+				Drops.food_potions_quantity = food_potions_count.getText();
+				Drops.main_loot_quantity = main_loot_count.getText();
+			
+			
+			// Define the instance variables that are going to be passed as parameters for the row insertion query
+			Drops.charms_drop = Drops.charms_quantity + " " + charms_choices.getSelectedItem().toString();
+			Drops.food_potions_drop = Drops.food_potions_quantity + " " + food_potions_choices.getSelectedItem().toString();
+			Drops.main_loot_drop = Drops.main_loot_quantity + " " + main_loot_choices.getSelectedItem().toString();
+			Drops.unique_drops_drop = unique_drops_choices.getSelectedItem().toString();
+			if(Drops.unique_drops_drop.equals("none")){
+				Drops.unique_drops_drop = null;
+			}
+			Drops.pet_drop = pets_choices.getSelectedItem().toString();
+			try {
+				connector.insertRow(this.user_name);
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		
-		// Define the instance variables that are going to be passed as parameters for the row insertion query
-		Drops.charms_drop = Drops.charms_quantity + " " + charms_choices.getSelectedItem().toString();
-		Drops.food_potions_drop = Drops.food_potions_quantity + " " + food_potions_choices.getSelectedItem().toString();
-		Drops.main_loot_drop = Drops.main_loot_quantity + " " + main_loot_choices.getSelectedItem().toString();
-		Drops.unique_drops_drop = unique_drops_choices.getSelectedItem().toString();
-		if(Drops.unique_drops_drop.equals("none")){
-			Drops.unique_drops_drop = null;
-		}
-		Drops.pet_drop = pets_choices.getSelectedItem().toString();
 	}
 
 	public Object[][] getDrops() throws SQLException{
