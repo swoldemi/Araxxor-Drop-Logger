@@ -5,9 +5,9 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.sql.*;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 public class LoggerInterface implements ActionListener{
 	private String user_name;
 	private DatabaseConnector connector;
+	private ImageIcon window_icon;
 	public boolean exit;
 	String[] last_kill;
 	String pets;
@@ -39,6 +40,7 @@ public class LoggerInterface implements ActionListener{
 		this.selection = null;
 		this.title = "Runescape Araxxor Drop Logger ";
 		this.window_dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		this.window_icon = new ImageIcon(getClass().getResource("Varrock_census_records_detail.png"));
 	}
 	
 	public void Logger() throws SQLException{
@@ -94,6 +96,9 @@ public class LoggerInterface implements ActionListener{
 		// Pack the buttons on the panel within the frame and center the frame
 		main_logger_interface.pack();
 		main_logger_interface.setLocationRelativeTo(null);
+		
+		// Set the icon image for the window
+		main_logger_interface.setIconImage(this.window_icon.getImage());
 	}
 	
 	@Override
@@ -218,6 +223,7 @@ public class LoggerInterface implements ActionListener{
          table.setOpaque(true);
          frame.setContentPane(table);
          frame.pack();
+         frame.setIconImage(this.window_icon.getImage());
          frame.setVisible(true);
     }
 }

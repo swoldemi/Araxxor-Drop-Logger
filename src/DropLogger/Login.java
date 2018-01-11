@@ -1,6 +1,5 @@
 package DropLogger;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -16,6 +15,7 @@ public class Login extends JFrame implements ActionListener{
 	private static final long serialVersionUID = -3628098483298498297L;
 	private String user_name;
 	private ImageIcon splash_image;
+	private ImageIcon window_icon;
 	private JLabel image_label;
 	private JLabel prompt;
 	private JTextField entry;
@@ -49,11 +49,15 @@ public class Login extends JFrame implements ActionListener{
 		this.add(this.submit, c);
 		this.submit.addActionListener(this);
 		
+		// Define parameters for the window
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(480, 360);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		
+		
+		this.window_icon = new ImageIcon(getClass().getResource("Varrock_census_records_detail.png"));
+		this.setIconImage(this.window_icon.getImage());
 	}
 	@Override
 	synchronized public void actionPerformed(ActionEvent ae) {

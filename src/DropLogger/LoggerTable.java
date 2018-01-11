@@ -10,7 +10,7 @@ import javax.swing.table.TableColumn;
 
 public class LoggerTable extends JPanel  {
 	private static final long serialVersionUID = -4482263346660694338L;
-
+	
 	LoggerTable(Object[][] table_contents){	
 		// Parent grid construction
 		super(new GridLayout(1,0));
