@@ -28,11 +28,12 @@ public class Drops {
 	public static String food_potions_drop; // food or potions dropped - {quantity} {food or potion name} 
 	public static String main_loot_drop; // main loop dropped - {quantity} {name}
 	public static String unique_drops_drop; // if unique or very unique drop - {name}, no quantity
+	public static String pet_drop; // if a pet drop is received
 	
 	public static String charms_quantity;
 	public static String food_potions_quantity;
 	public static String main_loot_quantity;
-
+	
 	Drops(int kn, int apd, String cd, String fdp, String udp){
 		kill_number = kn;
 		arrow_pheromone_drop = apd;
