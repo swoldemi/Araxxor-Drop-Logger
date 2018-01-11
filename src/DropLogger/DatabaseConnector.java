@@ -43,10 +43,10 @@ public class DatabaseConnector {
 	}
 	
 	/* 
-	 * Get the current state of the main drop table
+	 * Get the current state of a drop table
 	 */
-	public void getTable(String user_name) throws SQLException{
-		String select_all = "SELECT * FROM " + user_name;
+	public void getTable(String table_name) throws SQLException{
+		String select_all = "SELECT * FROM " + table_name;
 		this.myResult = this.myState.executeQuery(select_all); 
 	}
 	
@@ -90,19 +90,11 @@ public class DatabaseConnector {
 	}
 	
 	/*
-	 * Get the state of the pets table 
-	 */
-	public void getPetsTable(String table_name) throws SQLException{
-		String selection_query = "SELECT * FROM " + table_name + "_pets";
-		this.myResult = this.myState.executeQuery(selection_query);
-	}
-	
-	/*
 	 * Update the pets table since a new pet was dropped
 	 */
 	public void updatePetsTable(String table_name) throws SQLException{
 		// Get the current state of the table
-		this.getPetsTable(table_name);
+		this.getTable(table_name + "_pets");
 		
 		// Check if the user has gotten any pets previously
 		this.myResult.next();
