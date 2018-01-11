@@ -17,7 +17,8 @@ public class Drops {
 		"Overload flask (6)"};
 	final public static String[] unique_drops = new String[]{
 		"none", "Leg bottom", "Leg middle", "Leg top",
-		"Eye", "Fang", "Web", "Effigy", "Araxyte pet", "Araxyte egg"};
+		"Eye", "Fang", "Web", "Effigy"};
+	final public static String[] pets = new String[]{"Araxyte pet", "Barry", "Mallory"};
 
 	// Instance variables for the drops of the current kill
 	public static int kill_number; // current kill number
