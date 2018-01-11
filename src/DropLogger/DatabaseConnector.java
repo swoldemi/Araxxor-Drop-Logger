@@ -33,8 +33,8 @@ public class DatabaseConnector {
 						+ "araxyte_pet bool, "
 						+ "barry bool, "
 						+ "mallory bool)";
-		myState.executeUpdate(make_main_table);
-		myState.executeUpdate(make_pet_table);
+		this.myState.executeUpdate(make_main_table);
+		this.myState.executeUpdate(make_pet_table);
 	}
 	
 	/* 
@@ -42,7 +42,7 @@ public class DatabaseConnector {
 	 */
 	public void getTable(String user_name) throws SQLException{
 		String select_all = "SELECT * FROM " + user_name;
-		this.myResult = myState.executeQuery(select_all); 
+		this.myResult = this.myState.executeQuery(select_all); 
 	}
 	
 	public void insertRow(String table_name) throws SQLException{
@@ -59,12 +59,17 @@ public class DatabaseConnector {
 	
 	public int getLength(String table_name) throws SQLException{
 		int length = 0;
-		String insertion_query = "SELECT kill_number FROM " + table_name;
-		this.myResult = this.myState.executeQuery(insertion_query);
+		String selection_query = "SELECT kill_number FROM " + table_name;
+		this.myResult = this.myState.executeQuery(selection_query);
 		while(this.myResult.next()){
 			length++;
 		}
 		this.myResult.close();
 		return length;
+	}
+	
+	public void getPetsTable(String table_name) throws SQLException{
+		String selection_query = "SELECT * FROM " + table_name + "_pets";
+		this.myResult = this.myState.executeQuery(selection_query);
 	}
 }
