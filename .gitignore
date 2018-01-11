@@ -1,4 +1,4 @@
 .classpath
 .project
 .settings/
-src/DropLogger/DatabaseCredentials.java
+src/araxxorDropLogger/DatabaseCredentials.java
