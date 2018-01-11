@@ -22,6 +22,7 @@ public class Login extends JFrame implements ActionListener{
 	private JButton submit;
 	public volatile boolean waiting; // Important that this boolean is volatile
 	
+	private boolean DEBUG = false;
 	public Login(){
 		// Set up the splash image, text entry prompt, text field and submission button
 		this.setTitle("Araxxor Drop Logger | Login");
@@ -55,15 +56,18 @@ public class Login extends JFrame implements ActionListener{
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		
-		
 		this.window_icon = new ImageIcon(getClass().getResource("Varrock_census_records_detail.png"));
 		this.setIconImage(this.window_icon.getImage());
 	}
 	@Override
 	synchronized public void actionPerformed(ActionEvent ae) {
 		String request = ae.getSource().toString().split(",")[25].split("=")[1];
-		System.out.println(ae.getSource().toString());
-		System.out.println(request);
+		
+		if(DEBUG){
+			System.out.println(ae.getSource().toString());
+			System.out.println(request);
+		}
+		
 		if(request.equals("Login")){
 			this.setVisible(false);
 			this.dispose();

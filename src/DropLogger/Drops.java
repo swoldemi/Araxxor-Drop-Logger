@@ -16,22 +16,21 @@ public class Drops {
 		"Rocktail", "Saradomin brew flask (6)", "Super restore flask (6)",
 		"Overload flask (6)"};
 	final public static String[] unique_drops = new String[]{
-		"none", "Spider leg bottom", "Spider leg middle", "Spider leg top",
-		"Araxxi's eye", "Araxxi's fang", "Araxxi's web"};
-	final public static String[] very_unique_drops = new String[]{"Starved ancient effigy", "Araxyte pet", "Araxyte pet"};
+		"none", "Leg bottom", "Leg middle", "Leg top",
+		"Eye", "Fang", "Web", "Effigy", "Araxyte pet", "Araxyte egg"};
 
 	// Instance variables for the drops of the current kill
-	static int kill_number; // current kill number
-	static int arrow_pheromone_drop; // number of arrows dropped, 0 if pheromone
+	public static int kill_number; // current kill number
+	public static int arrow_pheromone_drop; // number of arrows dropped, 0 if pheromone
 	
-	static String charms_drop; // charms dropped - {quantity} {Charm type}
-	static String food_potions_drop; // food or potions dropped - {quantity} {food or potion name} 
-	static String main_loot_drop; // main loop dropped - {quantity} {name}
-	static String unique_drops_drop; // if unique or very unique drop - {name}, no quantity
+	public static String charms_drop; // charms dropped - {quantity} {Charm type}
+	public static String food_potions_drop; // food or potions dropped - {quantity} {food or potion name} 
+	public static String main_loot_drop; // main loop dropped - {quantity} {name}
+	public static String unique_drops_drop; // if unique or very unique drop - {name}, no quantity
 	
-	static String charms_quantity;
-	static String food_potions_quantity;
-	static String main_loot_quantity;
+	public static String charms_quantity;
+	public static String food_potions_quantity;
+	public static String main_loot_quantity;
 
 	Drops(int kn, int apd, String cd, String fdp, String udp){
 		kill_number = kn;

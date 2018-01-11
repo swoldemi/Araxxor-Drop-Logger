@@ -21,13 +21,13 @@ public class LoggerInterface implements ActionListener{
 	private DatabaseConnector connector;
 	private ImageIcon window_icon;
 	public boolean exit;
-	String[] last_kill;
-	String pets;
-	String selection;
-	String title;
-	Dimension window_dimension;
+	public String[] last_kill;
+	public String pets;
+	public String selection;
+	public String title;
+	public Dimension window_dimension;
 	
-	boolean DEBUG = false;
+	private boolean DEBUG = false;
 	
 	LoggerInterface(String name, DatabaseConnector connector) throws SQLException{
 		this.user_name = name;

@@ -1,13 +1,14 @@
 package DropLogger;
+
 import java.sql.*;
 
 public class DatabaseConnector {
 	private String url = DatabaseCredentials.url;
 	private String password = DatabaseCredentials.password;
 	private String username = DatabaseCredentials.username;
-	Connection myConn;
-	Statement myState;
-	ResultSet myResult;
+	public Connection myConn;
+	public Statement myState;
+	public ResultSet myResult;
 	
 	DatabaseConnector(){
     	try {
