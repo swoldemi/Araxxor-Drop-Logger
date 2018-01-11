@@ -26,20 +26,34 @@ public class DatabaseConnector {
 	 */
 	public void makeTable(String user_name) throws SQLException{
 		String make_main_table = "CREATE TABLE IF NOT EXISTS " + user_name + "("
-						+ "kill_number int, "
-						+ "arrows_pheromone int, "
-						+ "charms varchar(255), "
-						+ "rocktails_sarabrews_overloads varchar(255), "
-						+ "main_loot varchar(255), "
-						+ "unique_drops varchar(255),"
+						+ "kill_number int DEFAULT -1, "
+						+ "arrows_pheromone int DEFAULT -1, "
+						+ "charms varchar(255) DEFAULT null, "
+						+ "rocktails_sarabrews_overloads varchar(255) DEFAULT null, "
+						+ "main_loot varchar(255) DEFAULT null, "
+						+ "unique_drops varchar(255) DEFAULT null,"
 						+ "UNIQUE KEY(kill_number)) ";
 		
 		String make_pet_table = "CREATE TABLE IF NOT EXISTS " + user_name + "_pets("
-						+ "araxyte_pet bool, "
-						+ "barry bool, "
-						+ "mallory bool)";
-		this.myState.executeUpdate(make_main_table);
-		this.myState.executeUpdate(make_pet_table);
+						+ "araxyte_pet bool DEFAULT 0, "
+						+ "barry bool DEFAULT 0, "
+						+ "mallory bool DEFAULT 0);";
+		
+		if(DEBUG){
+			System.out.println(make_main_table);
+			System.out.println(make_pet_table);
+		}
+		
+		int main_table_rows = this.myState.executeUpdate(make_main_table);
+		int pet_table_rows = this.myState.executeUpdate(make_pet_table);
+		
+		// Check if the tables are empty
+		// If they are, insert default values
+		if(main_table_rows == 0){
+			this.myState.executeUpdate("INSERT INTO " + user_name + " VALUES()"); //insert default values
+		}
+		if(pet_table_rows == 0)
+			this.myState.executeUpdate("INSERT INTO " + user_name + "_pets VALUES()"); //insert default values
 	}
 	
 	/* 
@@ -54,7 +68,6 @@ public class DatabaseConnector {
 	 * Insert a row into the main drop table
 	 */
 	public void insertRow(String table_name) throws SQLException{
-		//INSERT INTO data_file VALUES(1, 74, "12 Blue Charm", "12 Saradomin brew flask (6)", "220 Onyx bolts", null)
 		String insertion_query = "INSERT INTO " + table_name + " VALUES("
 				+ Drops.kill_number + ", "
 				+ Drops.arrow_pheromone_drop + ", "
