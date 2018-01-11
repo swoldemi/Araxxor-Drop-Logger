@@ -10,7 +10,7 @@ public class DatabaseConnector {
 	public Statement myState;
 	public ResultSet myResult;
 	
-	private boolean DEBUG = false;
+	private boolean DEBUG = true;
 	
 	DatabaseConnector(){
     	try {
@@ -28,10 +28,10 @@ public class DatabaseConnector {
 		String make_main_table = "CREATE TABLE IF NOT EXISTS " + user_name + "("
 						+ "kill_number int DEFAULT -1, "
 						+ "arrows_pheromone int DEFAULT -1, "
-						+ "charms varchar(255) DEFAULT null, "
-						+ "rocktails_sarabrews_overloads varchar(255) DEFAULT null, "
-						+ "main_loot varchar(255) DEFAULT null, "
-						+ "unique_drops varchar(255) DEFAULT null,"
+						+ "charms varchar(255) DEFAULT 'null', "
+						+ "rocktails_sarabrews_overloads varchar(255) DEFAULT 'null', "
+						+ "main_loot varchar(255) DEFAULT 'null', "
+						+ "unique_drops varchar(255) DEFAULT 'null',"
 						+ "UNIQUE KEY(kill_number)) ";
 		
 		String make_pet_table = "CREATE TABLE IF NOT EXISTS " + user_name + "_pets("
@@ -44,16 +44,29 @@ public class DatabaseConnector {
 			System.out.println(make_pet_table);
 		}
 		
-		int main_table_rows = this.myState.executeUpdate(make_main_table);
-		int pet_table_rows = this.myState.executeUpdate(make_pet_table);
+		// Make the tables
+		this.myState.executeUpdate(make_main_table);
+		this.myState.executeUpdate(make_pet_table);
 		
 		// Check if the tables are empty
 		// If they are, insert default values
-		if(main_table_rows == 0){
-			this.myState.executeUpdate("INSERT INTO " + user_name + " VALUES()"); //insert default values
-		}
-		if(pet_table_rows == 0)
+		// When we insert for the first time into these tables, we need to delete these entries
+		this.myResult = this.myState.executeQuery("SELECT * FROM " + user_name + " LIMIT 1");
+		this.myResult.next();
+		if(this.myResult.getString("kill_number").equals("")){
+			System.out.println(this.myResult.getString("kill_number") + " AAAAAAAAAA");
 			this.myState.executeUpdate("INSERT INTO " + user_name + "_pets VALUES()"); //insert default values
+		}
+		this.myResult.close();
+		
+		this.myResult = this.myState.executeQuery("SELECT * FROM " + user_name + "_pets LIMIT 1");
+		this.myResult.next();
+		if(this.myResult.getString("barry").equals("")){
+			System.out.println(this.myResult.getString("barry") + " AAAAAAAAAA");
+			this.myState.executeUpdate("INSERT INTO " + user_name + "_pets VALUES()"); //insert default values
+		}
+		this.myResult.close();
+			
 	}
 	
 	/* 
