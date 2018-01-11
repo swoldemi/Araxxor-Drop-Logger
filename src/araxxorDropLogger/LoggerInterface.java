@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class LoggerInterface implements ActionListener{
 	private String user_name;
@@ -117,6 +118,14 @@ public class LoggerInterface implements ActionListener{
 		else if(selection.equals("View Log")){
 			try {
 				this.makeAndShowTable(this.getDrops());
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else if(selection.equals("View Pets")){
+			try {
+				this.showPets();
 			} 
 			catch (SQLException e) {
 				e.printStackTrace();
@@ -235,5 +244,34 @@ public class LoggerInterface implements ActionListener{
          table_frame.pack();
          table_frame.setIconImage(this.window_icon.getImage());
          table_frame.setVisible(true);
+    }
+    
+    public void showPets() throws SQLException {
+    	// Get pets state
+    	connector.getTable(this.user_name + "_pets");
+    		
+    	// Set up another JFrame
+    	JFrame pets_frame = new JFrame(this.title + "| View Pets");
+    	pets_frame.setPreferredSize(new Dimension(425, 150));
+    	pets_frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    	pets_frame.setLayout(new GridLayout(4,1));
+    	pets_frame.add(new JLabel("~You currently have these pets~", SwingConstants.CENTER));
+    	
+    	// Extract pets
+    	connector.myResult.next();
+    	if(connector.myResult.getString(1).equals("1"))
+    		pets_frame.add(new JLabel("Araxyte pet", SwingConstants.CENTER));
+    	if(connector.myResult.getString(2).equals("1"))
+    		pets_frame.add(new JLabel("Barry", SwingConstants.CENTER));
+    	if(connector.myResult.getString(3).equals("1"))
+    		pets_frame.add(new JLabel("Mallory", SwingConstants.CENTER));
+    	connector.myResult.close();
+    	
+    	pets_frame.pack();
+    	
+    	pets_frame.setLocationRelativeTo(null);
+    	pets_frame.setIconImage(this.window_icon.getImage());
+    	pets_frame.setVisible(true);
+    	
     }
 }
