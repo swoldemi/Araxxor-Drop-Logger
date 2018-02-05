@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/swoldemi/Araxxor-Drop-Logger.svg?token=7krzK5VdKs3se3MYzZF9&branch=master)](https://travis-ci.com/swoldemi/Araxxor-Drop-Logger) 
 # Araxxor Drop Logger
 
 ## Why?
@@ -9,7 +10,7 @@
 - [ ] Statistics class
 - [ ] 100% test coverage
 - [ ] Online SQL Database
-- [-] Well defined use cases
+- [ ] Well defined use cases
 - [ ] Better UX/UI
 - [ ] Find a JTable alternative
 - [ ] Code cleanup
