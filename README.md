@@ -6,6 +6,10 @@
 2) Java is cool.
 3) Making this was more fun than actually farming Araxxor.
 
+## Requirements
+ - [MySQL JDBC library (used with MySQL 5.7)](https://dev.mysql.com/downloads/connector/j/)
+ - OpenJDK 8+ (Java Archive coming :soon:)
+ 
 ## To do
 - [ ] Statistics class
 - [ ] 100% test coverage
