@@ -10,7 +10,7 @@ public class DatabaseConnector {
 	public Statement myState;
 	public ResultSet myResult;
 	
-	private boolean DEBUG = true;
+	private boolean DEBUG = false;
 	
 	DatabaseConnector(){
     	try {
@@ -52,21 +52,24 @@ public class DatabaseConnector {
 		// If they are, insert default values
 		// When we insert for the first time into these tables, we need to delete these entries
 		this.myResult = this.myState.executeQuery("SELECT * FROM " + user_name + " LIMIT 1");
-		this.myResult.next();
-		if(this.myResult.getString("kill_number").equals("")){
-			System.out.println(this.myResult.getString("kill_number") + " AAAAAAAAAA");
-			this.myState.executeUpdate("INSERT INTO " + user_name + "_pets VALUES()"); //insert default values
+		this.myResult.next(); 
+
+		if(!this.myResult.isAfterLast()){
+			if(DEBUG)
+				System.out.println(this.myResult.getString("kill_number") + " AAAAAAAAAA");
+			this.myState.executeUpdate("INSERT INTO " + user_name + " VALUES()"); // Insert default values
 		}
 		this.myResult.close();
 		
+		// Do the same for the pets table
 		this.myResult = this.myState.executeQuery("SELECT * FROM " + user_name + "_pets LIMIT 1");
 		this.myResult.next();
-		if(this.myResult.getString("barry").equals("")){
-			System.out.println(this.myResult.getString("barry") + " AAAAAAAAAA");
-			this.myState.executeUpdate("INSERT INTO " + user_name + "_pets VALUES()"); //insert default values
+		if(!this.myResult.isAfterLast()){
+			if(DEBUG)
+				System.out.println(this.myResult.getString("barry") + " AAAAAAAAAA");
+			this.myState.executeUpdate("INSERT INTO " + user_name + "_pets VALUES()"); // Insert default values
 		}
 		this.myResult.close();
-			
 	}
 	
 	/* 
