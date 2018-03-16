@@ -11,7 +11,7 @@ public class Drops {
 		"Grimy lantadyme", "Magic logs", "Yew logs", "Adamantite ore", "Coal",
 		"Adamantite ore", "Runite ore", "Dwarf weed seed", "Magic seed",
 		"Water talisman", "Battlestaff"};
-	final public static String[] charms = new String[]{"Gold charm", "Green charm", "Red charm", "Blue charm"};
+	final public static String[] charms = new String[]{"Gold charm", "Green charm", "Crimson charm", "Blue charm"};
 	final public static String[] food_potions = new String[]{
 		"Rocktail", "Saradomin brew flask (6)", "Super restore flask (6)",
 		"Overload flask (6)"};
