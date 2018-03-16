@@ -4,6 +4,11 @@ import java.sql.SQLException;
 
 public class Main{
 	public static void main(String[] args) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");  // Register the JDBC driver
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		// Create a Login instance and check for spaces in the username for SQL table creation
 		Login login_interface = new Login();
 		
