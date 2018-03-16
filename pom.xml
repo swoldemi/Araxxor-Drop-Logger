@@ -40,4 +40,19 @@
       </plugins>
    </build>
    <url>https://github.com/swoldemi/Araxxor-Drop-Logger/</url>
+   <dependencies>
+   	<dependency>
+   		<groupId>mysql</groupId>
+   		<artifactId>mysql-connector-java</artifactId>
+   	</dependency>
+   </dependencies>
+   <dependencyManagement>
+   	<dependencies>
+   		<dependency>
+   			<groupId>mysql</groupId>
+   			<artifactId>mysql-connector-java</artifactId>
+   			<version>5.1.44</version>
+   		</dependency>
+   	</dependencies>
+   </dependencyManagement>
 </project>
