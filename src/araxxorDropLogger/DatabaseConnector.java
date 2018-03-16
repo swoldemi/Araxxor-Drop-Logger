@@ -52,9 +52,9 @@ public class DatabaseConnector {
 		// If they are, insert default values
 		// When we insert for the first time into these tables, we need to delete these entries
 		this.myResult = this.myState.executeQuery("SELECT * FROM " + user_name + " LIMIT 1");
-		this.myResult.next(); 
+		this.myResult.next();
 
-		if(!this.myResult.isAfterLast()){
+		if(this.myResult.isBeforeFirst()){
 			if(DEBUG)
 				System.out.println(this.myResult.getString("kill_number") + " AAAAAAAAAA");
 			this.myState.executeUpdate("INSERT INTO " + user_name + " VALUES()"); // Insert default values
@@ -64,7 +64,8 @@ public class DatabaseConnector {
 		// Do the same for the pets table
 		this.myResult = this.myState.executeQuery("SELECT * FROM " + user_name + "_pets LIMIT 1");
 		this.myResult.next();
-		if(!this.myResult.isAfterLast()){
+		
+		if(this.myResult.isBeforeFirst()){
 			if(DEBUG)
 				System.out.println(this.myResult.getString("barry") + " AAAAAAAAAA");
 			this.myState.executeUpdate("INSERT INTO " + user_name + "_pets VALUES()"); // Insert default values
