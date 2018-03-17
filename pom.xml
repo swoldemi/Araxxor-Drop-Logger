@@ -1,81 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>me.swoldemi.araxxorDropLogger</groupId>
-   <artifactId>AraxxorDropLogger</artifactId>
-   <version>0.0.1</version>
-   <name>Araxxor Drop Logger</name>
-   <url>https://github.com/swoldemi/Araxxor-Drop-Logger/</url>
-   <description>A Runescape Araxxor (Araxxi) loot logger made using mySQL and Java GUIs</description>
-   <build>
-      <sourceDirectory>src</sourceDirectory>
-      <resources>
-         <resource>
-            <directory>src</directory>
-            <excludes>
-               <exclude>**/*.java</exclude>
-            </excludes>
-         </resource>
-      </resources>
-      <plugins>
-         <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.1</version>
-            <configuration>
-               <source>1.8</source>
-               <target>1.8</target>
-            </configuration>
-         </plugin>
-         <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>cobertura-maven-plugin</artifactId>
-            <version>2.7</version>
-            <configuration>
-               <formats>
-                  <format>html</format>
-                  <format>xml</format>
-               </formats>
-               <check />
-            </configuration>
-         </plugin>
-		 <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>copy</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>copy-dependencies</goal>
-                    </goals>
-                    <configuration>
-                        <outputDirectory>
-                            ${project.build.directory}/lib
-                        </outputDirectory>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>me.swoldemi.araxxorDropLogger</groupId>
+	<artifactId>AraxxorDropLogger</artifactId>
+	<version>0.0.1</version>
+	<name>Araxxor Drop Logger</name>
+	<url>https://github.com/swoldemi/Araxxor-Drop-Logger/</url>
+	<description>A Runescape Araxxor (Araxxi) loot logger made using MySQL and Java GUIs</description>
+
+	<build>
+	<sourceDirectory>src</sourceDirectory>
+	<resources>
+
+		<resource>
+			<directory>src</directory>
+			<excludes>
+				<exclude>**/*.java</exclude>
+			</excludes>
+		 </resource>
+		 
+	</resources>
+
+	<plugins>
+	
+		<plugin>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.1</version>
+			<configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+			</configuration>
+		</plugin>
+
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>cobertura-maven-plugin</artifactId>
+			<version>2.7</version>
+			<configuration>
+				<formats>
+					<format>html</format>
+					<format>xml</format>
+				</formats>
+				<check />
+			</configuration>
+		</plugin>
+
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>copy</id>
+					<phase>package</phase>
+					<goals>
+						<goal>copy-dependencies</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>
+							${project.build.directory}/lib
+						</outputDirectory>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+
 		 <plugin>
 		 <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <configuration>
-                <archive>
-                    <manifest>
-                        <addClasspath>true</addClasspath>
-                        <classpathPrefix>lib/</classpathPrefix>
+			<artifactId>maven-jar-plugin</artifactId>
+			<configuration>
+				<archive>
+					<manifest>
+						<addClasspath>true</addClasspath>
+						<classpathPrefix>lib/</classpathPrefix>
 						<mainClass>me.swoldemi.araxxorDropLogger.Main</mainClass>
-                    </manifest>
-                </archive>
-            </configuration>
-        </plugin>
-      </plugins>
-   </build>
-   <dependencies>
-   	<dependency>
-   		<groupId>mysql</groupId>
+					</manifest>
+				</archive>
+			</configuration>
+		</plugin>
+
+	</plugins>
+	</build>
+
+	<dependencies>
+
+	<dependency>
+		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>
 		<version>5.1.44</version>
-   	</dependency>
-   </dependencies>
+	</dependency>
+
+	</dependencies>
 </project>
