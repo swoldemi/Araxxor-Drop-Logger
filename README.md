@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/swoldemi/Araxxor-Drop-Logger.svg?branch=master) 
+[![Build Status](https://travis-ci.org/swoldemi/Araxxor-Drop-Logger.svg?branch=master)](https://travis-ci.org/swoldemi/Araxxor-Drop-Logger) 
+
 # Araxxor Drop Logger
 
 ## Why?
