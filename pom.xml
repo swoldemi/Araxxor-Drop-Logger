@@ -5,6 +5,7 @@
    <artifactId>AraxxorDropLogger</artifactId>
    <version>0.0.1-SNAPSHOT</version>
    <name>Araxxor Drop Logger</name>
+   <url>https://github.com/swoldemi/Araxxor-Drop-Logger/</url>
    <description>A Runescape Araxxor (Araxxi) loot logger made using mySQL and Java GUIs</description>
    <build>
       <sourceDirectory>src</sourceDirectory>
@@ -37,22 +38,44 @@
                <check />
             </configuration>
          </plugin>
+		 <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>copy</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>
+                            ${project.build.directory}/lib
+                        </outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+		 <plugin>
+		 <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <classpathPrefix>lib/</classpathPrefix>
+						<mainClass>araxxorDropLogger.Main</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
       </plugins>
    </build>
-   <url>https://github.com/swoldemi/Araxxor-Drop-Logger/</url>
    <dependencies>
    	<dependency>
    		<groupId>mysql</groupId>
    		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.44</version>
    	</dependency>
    </dependencies>
-   <dependencyManagement>
-   	<dependencies>
-   		<dependency>
-   			<groupId>mysql</groupId>
-   			<artifactId>mysql-connector-java</artifactId>
-   			<version>5.1.44</version>
-   		</dependency>
-   	</dependencies>
-   </dependencyManagement>
 </project>
