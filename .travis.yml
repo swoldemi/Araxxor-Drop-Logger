@@ -1,7 +1,5 @@
 language: java
-services:
-  - mysql
-  
+
 script: "mvn cobertura:cobertura"
 
 after_success:
